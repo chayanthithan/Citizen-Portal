@@ -1,0 +1,173 @@
+<!-- DS section GS Details-->
+<div class="DS_section">
+    <div class="btn">
+        <div class="inner_btn" (click)="addGS()">
+            <button>+ Add GS</button>
+        </div>
+        <div class="search">
+            <input type="text" (input)="doFilter()" [(ngModel)]="filter">
+            <span class="material-symbols-outlined">search</span>
+        </div>
+    </div>
+    <div class="mat-elevation-z8">
+        <table mat-table [dataSource]="dataSource">
+
+            <!-- Position Column -->
+            <ng-container matColumnDef="Firstname">
+                <th mat-header-cell *matHeaderCellDef> Firstname. </th>
+                <td mat-cell *matCellDef="let element"> {{element.Firstname}} </td>
+            </ng-container>
+
+            <!-- Name Column -->
+            <ng-container matColumnDef="LastName">
+                <th mat-header-cell *matHeaderCellDef> LastName </th>
+                <td mat-cell *matCellDef="let element"> {{element.LastName}} </td>
+            </ng-container>
+
+            <!-- Weight Column -->
+            <ng-container matColumnDef="Address">
+                <th mat-header-cell *matHeaderCellDef> Address </th>
+                <td mat-cell *matCellDef="let element"> {{element.Address}} </td>
+            </ng-container>
+
+            <!-- Symbol Column -->
+            <ng-container matColumnDef="JobCardNo">
+                <th mat-header-cell *matHeaderCellDef> JobCardNo </th>
+                <td mat-cell *matCellDef="let element"> {{element.JobCardNo}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="serviceGrade">
+                <th mat-header-cell *matHeaderCellDef> serviceGrade </th>
+                <td mat-cell *matCellDef="let element"> {{element.serviceGrade}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="Email">
+                <th mat-header-cell *matHeaderCellDef> Email </th>
+                <td mat-cell *matCellDef="let element"> {{element.Email}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="TelNO">
+                <th mat-header-cell *matHeaderCellDef> TelNO </th>
+                <td mat-cell *matCellDef="let element"> {{element.TelNO}} </td>
+            </ng-container>
+            <!-- Action -->
+            <ng-container matColumnDef="Action">
+                <th mat-header-cell *matHeaderCellDef> Action </th>
+                <td mat-cell *matCellDef="let element" class="action" > 
+                    <button  class="btn_view">View</button>
+                </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+
+        <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons
+            aria-label="Select page of periodic elements">
+        </mat-paginator>
+    </div>
+
+
+    <!-- add gs -->
+    <div class="login-container" *ngIf="this.enableAddGS">
+
+        <div class="login-card">
+            <div class="go_back" (click)="addGS()" role="button">
+                <span class="material-symbols-outlined">keyboard_backspace</span>
+            </div>
+            <div class="img-div">
+                <img src="user.png" alt="Logo">
+            </div>
+            <div class="header" role="button">
+                <h1>Add GS</h1>
+            </div>
+
+            <form class="login-form" action="">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" placeholder="Enter your username" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" placeholder="Enter your password" required>
+                </div>
+                <div class="form-group">
+                    <label for="firstName">FirstName</label>
+                    <input type="password" id="firstName" placeholder="Enter your firstname" required>
+                </div>
+                <div class="form-group">
+                    <label for="lastName">LastName</label>
+                    <input type="password" id="lastName" placeholder="Enter your lastname" required>
+                </div>
+                <div class="form-group">
+                    <label for="gender">Gender</label>
+                    <input type="password" id="gender" placeholder="Enter your gender" required>
+                </div>
+                <div class="form-group">
+                    <label for="age">Age</label>
+                    <input type="password" id="age" placeholder="Enter your age" required>
+                </div>
+                <div class="form-group">
+                    <label for="dateOfBirth">Date Of Birth</label>
+                    <input type="password" id="dateOfBirth" placeholder="Enter your dateOfBirth" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="password" id="email" placeholder="Enter your email" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone</label>
+                    <input type="password" id="phone" placeholder="Enter your phone" required>
+                </div>
+                <div class="form-group">
+                    <label for="address">Address</label>
+                    <input type="password" id="address" placeholder="Enter your address" required>
+                </div>
+                <div class="form-group">
+                    <label for="city">City</label>
+                    <input type="password" id="city" placeholder="Enter your city" required>
+                </div>
+                <div class="form-group">
+                    <label for="jobCardNo">Job Card No</label>
+                    <input type="password" id="jobCardNo" placeholder="Enter your jobCardNo" required>
+                </div>
+                <div class="form-group">
+                    <label for="serviceGrade">Service Grade</label>
+                    <input type="password" id="serviceGrade" placeholder="Enter your serviceGrade" required>
+                </div>
+                <div class="form-group">
+                    <div>
+                        <label for="isPermanent">Is Permanent</label>
+                        <input type="checkbox" id="isPermanent"  required>
+                    </div>
+                    
+                </div>
+                <!-- qualificationdetails -->
+                <div class="gs_qualification">
+                    <div class="education">
+                        <p>Education Details</p>
+                    </div>
+                    <div class="form-group">
+                        <label for="qualification">Qualification</label>
+                        <input type="password" id="qualification" placeholder="Enter your qualification" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="institution">Institution</label>
+                        <input type="password" id="institution" placeholder="Enter your institution" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="startingYear">StartingYear</label>
+                        <input type="password" id="startingYear" placeholder="Enter your startingYear" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="completionYear">CompletionYear</label>
+                        <input type="password" id="completionYear" placeholder="Enter your completionYear" required>
+                    </div>
+                </div>
+                <button type="submit" class="login-button">Add</button>
+
+            </form>
+        </div>
+    </div>
+</div>

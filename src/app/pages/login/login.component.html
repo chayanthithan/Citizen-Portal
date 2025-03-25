@@ -1,0 +1,41 @@
+  <div class="login-container">
+    <div class="login-card">
+        <div class="img-div">
+            <img src="logo.png" alt="Logo">
+
+        </div>
+      <div class="header">
+        <h1>Citizen Portal</h1>
+        <p>Welcome back!</p>
+      </div>
+  
+      <form class="login-form" action="">
+        <div class="form-group">
+          <label for="username">Username</label>
+          <input [(ngModel)]="loginCredentials.email" name="loginCredentials.username" type="text" id="username" placeholder="Enter your username" required>
+        </div>
+  
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input [(ngModel)]="loginCredentials.password" name="loginCredentials.password" type="password" id="password" placeholder="Enter your password" required>
+        </div>
+  
+        <button (click)="doLogin()" type="submit" class="login-button">Login</button>
+       
+        <div class="social-login">
+          <div>
+            <p style="color: #19657e;">or</p>
+          </div>
+          <div class="inner_social-login">
+            <img src="google-logo.png" alt="Google Icon" class="social-icon">
+            <button type="button" class="google-login" style="color: #19657e;">Sign in with Google</button>
+          </div>
+        </div>
+  
+        <div class="links">
+          <a routerLink="/register" class="link">Don't have an account? Sign up</a>
+          <a routerLink="/forget-password" class="link">Forgot Password?</a>
+        </div>
+      </form>
+    </div>
+  </div>

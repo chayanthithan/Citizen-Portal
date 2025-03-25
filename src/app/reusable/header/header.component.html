@@ -1,0 +1,36 @@
+<div class="header">
+    <div class="header__style">
+        <div class="header__left">
+            <span *ngIf="mainService.isMinimized"
+                  class="header__left__menu material-symbols-outlined icon__color icon__size"
+                  (click)="mainService.toggle()">menu</span>
+            <span *ngIf="!mainService.isMinimized"
+                  class="header__left__menu material-symbols-outlined icon__color icon__size"
+                  (click)="mainService.toggle()">menu_open</span>
+            <img class="header__medi__logo" src="logo.png" alt="medi_logo">
+          </div>
+          
+        <nav class="header__nav__list">
+            <ul>
+                <!-- <li><a id="h__home" routerLink="/index">Home</a></li>
+                <li *ngIf="this.mainService.isRole == 'ROLE_PEOPLE' "><a id="h__student" routerLink="/certificates" routerLinkActive="active">Certificates</a></li>
+                <li *ngIf="this.mainService.isRole  == 'ROLE_DS' "><a id="h__student" routerLink="/gs-details" routerLinkActive="active">GS Details</a></li>
+                <li *ngIf="this.mainService.isRole  == 'ROLE_DS' || this.mainService.isRole  == 'ROLE_GS'"><a id="h__student" routerLink="/user-details" routerLinkActive="active" >User Details</a></li> -->
+
+            </ul>
+        </nav>
+
+    </div>
+    <div class="header__right">
+        <div class="make__center">
+            <!-- <a  >{{mainService.loginDto.lastName}}</a> -->
+            <a  >Viknaraja </a>
+        </div>
+        <div class="header__right">
+            <div class="icons__list">
+                <!-- <span class="material-symbols-outlined logout-icon">account_circle</span> -->
+                <span class="material-symbols-outlined icon__size">account_circle</span>
+            </div>
+        </div>
+    </div>
+</div>

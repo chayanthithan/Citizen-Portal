@@ -1,0 +1,150 @@
+<!-- <div class="form-container">
+    <form action="">
+        <div class="form-row ">
+            <div class="form-group">
+                <label for="income1">Income Type</label>
+                <select id="income1" class="income-select" [(ngModel)]="incomeList[0].incomeType">
+                    <option value="">Select income type</option>
+                    <option value="EMPLOYMENT_INCOME">Employment Income</option>
+                    <option value="BUSINESS_INCOME">Business Income</option>
+                    <option value="RENTAL_INCOME">Rental Income</option>
+                    <option value="INVESTMENT_INCOME">Investment Income</option>
+                    <option value="AGRICULTURAL_INCOME">Agricultural Income</option>
+                    <option value="CAPITAL_GAINS">Capital Gains</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="income1">Income Source</label>
+                <input type="text" [(ngModel)]="incomeList[0].incomeSource" name="incomeSource">
+            </div>
+            <div class="form-group">
+                <label for="income1">Income Value</label>
+                <input type="number" [(ngModel)]="incomeList[0].incomeValue" name="incomeValue">
+            </div>
+        </div>
+        <div class="form-row ">
+            <div class="form-group">
+                <label for="income1">Income Type</label>
+                <select id="income1" class="income-select" [(ngModel)]="incomeList[1].incomeType">
+                    <option value="">Select income type</option>
+                    <option value="EMPLOYMENT_INCOME">Employment Income</option>
+                    <option value="BUSINESS_INCOME">Business Income</option>
+                    <option value="RENTAL_INCOME">Rental Income</option>
+                    <option value="INVESTMENT_INCOME">Investment Income</option>
+                    <option value="AGRICULTURAL_INCOME">Agricultural Income</option>
+                    <option value="CAPITAL_GAINS">Capital Gains</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="income1">Income Source</label>
+                <input type="text" [(ngModel)]="incomeList[1].incomeSource" name="incomeSource">
+            </div>
+            <div class="form-group">
+                <label for="income1">Income Value</label>
+                <input type="text" [(ngModel)]="incomeList[1].incomeValue" name="incomeValue">
+            </div>
+        </div>
+        <div class="form-row ">
+            <div class="form-group">
+                <label for="income1">Income Type</label>
+                <select id="income1" class="income-select" [(ngModel)]="incomeList[2].incomeType">
+                    <option value="">Select income type</option>
+                    <option value="EMPLOYMENT_INCOME">Employment Income</option>
+                    <option value="BUSINESS_INCOME">Business Income</option>
+                    <option value="RENTAL_INCOME">Rental Income</option>
+                    <option value="INVESTMENT_INCOME">Investment Income</option>
+                    <option value="AGRICULTURAL_INCOME">Agricultural Income</option>
+                    <option value="CAPITAL_GAINS">Capital Gains</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="income1">Income Source</label>
+                <input type="text" [(ngModel)]="incomeList[2].incomeSource" name="incomeSource">
+            </div>
+            <div class="form-group">
+                <label for="income1">Income Value</label>
+                <input type="text" [(ngModel)]="incomeList[2].incomeValue" name="incomeValue">
+            </div>
+        </div>
+        <div class="form-row ">
+            <div class="form-group">
+                <label for="income1">Income Type</label>
+                <select id="income1" class="income-select" [(ngModel)]="incomeList[3].incomeType">
+                    <option value="">Select income type</option>
+                    <option value="EMPLOYMENT_INCOME">Employment Income</option>
+                    <option value="BUSINESS_INCOME">Business Income</option>
+                    <option value="RENTAL_INCOME">Rental Income</option>
+                    <option value="INVESTMENT_INCOME">Investment Income</option>
+                    <option value="AGRICULTURAL_INCOME">Agricultural Income</option>
+                    <option value="CAPITAL_GAINS">Capital Gains</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="income1">Income Source</label>
+                <input type="text" [(ngModel)]="incomeList[3].incomeSource" name="incomeSource">
+            </div>
+            <div class="form-group">
+                <label for="income1">Income Value</label>
+                <input type="text" [(ngModel)]="incomeList[3].incomeValue" name="incomeValue">
+            </div>
+        </div>
+        <div class="form-row ">
+            <div class="form-group">
+                <label for="income1">Income Type</label>
+                <select id="income1" class="income-select" [(ngModel)]="incomeList[4].incomeType">
+                    <option value="" disabled>Select income type</option>
+                    <option value="EMPLOYMENT_INCOME">Employment Income</option>
+                    <option value="BUSINESS_INCOME">Business Income</option>
+                    <option value="RENTAL_INCOME">Rental Income</option>
+                    <option value="INVESTMENT_INCOME">Investment Income</option>
+                    <option value="AGRICULTURAL_INCOME">Agricultural Income</option>
+                    <option value="CAPITAL_GAINS">Capital Gains</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="income1">Income Source</label>
+                <input type="text" [(ngModel)]="incomeList[4].incomeSource" name="incomeSource">
+            </div>
+            <div class="form-group">
+                <label for="income1">Income Value</label>
+                <input type="text" [(ngModel)]="incomeList[4].incomeValue" name="incomeValue">
+            </div>
+        </div>
+        <div class="btn" (click)="submitIncome()">
+            <button type="submit" class="submit-btn" >Submit</button>
+        </div>
+    </form>
+</div> -->
+
+
+<div class="form-container">
+    <form>
+      <!-- Use *ngFor to reduce repetition -->
+      <div class="form-row" *ngFor="let income of incomeList; let i = index">
+        <div class="form-group">
+          <label>Income Type</label>
+          <select [(ngModel)]="income.incomeType" [name]="'incomeType' + i" class="income-select">
+            <option value="">Select income type</option>
+            <option value="EMPLOYMENT_INCOME">Employment Income</option>
+            <option value="BUSINESS_INCOME">Business Income</option>
+            <option value="RENTAL_INCOME">Rental Income</option>
+            <option value="INVESTMENT_INCOME">Investment Income</option>
+            <option value="AGRICULTURAL_INCOME">Agricultural Income</option>
+            <option value="CAPITAL_GAINS">Capital Gains</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Income Source</label>
+          <input type="text" [(ngModel)]="income.incomeSource" [name]="'incomeSource' + i">
+        </div>
+        <div class="form-group">
+          <label>Income Value</label>
+          <input type="number" [(ngModel)]="income.incomeValue" [name]="'incomeValue' + i">
+        </div>
+      </div>
+      
+      <div class="btn">
+        <button type="button" class="submit-btn" (click)="submitIncome()">Submit</button>
+      </div>
+    </form>
+  </div>

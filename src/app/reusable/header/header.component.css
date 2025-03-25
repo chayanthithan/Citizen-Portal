@@ -1,0 +1,130 @@
+.header{
+    background-color:white;
+    height: 10vh;
+    position:sticky;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 5%;
+    padding-right: 5%;
+    box-shadow: 1px 1px 3px 0px #00879E;}
+.header__left{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.header__medi__logo{
+    width: 50px;
+    height: 50px;
+}
+.header__left > span{
+    padding-right: 15%;
+    cursor: pointer;
+}
+.header__right{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    
+}
+.header__right > span{
+    padding-left: 15%;
+    cursor: pointer;
+}
+.header__right input{
+    /* padding: 5px 20px; */
+}
+
+/* nav list */
+.header__style{
+    display: flex;
+    align-items: center;
+   
+}
+.header__nav__list > ul{
+    text-decoration: none;
+    display: flex;
+}
+.header__nav__list > ul > li{
+    list-style: none;
+}
+.header__nav__list > ul > li > a,.make__center a{
+    text-decoration: none;
+    color: var(--primaryColor);
+    padding:10px;
+    cursor: pointer;
+    border-radius:3px;
+}
+.header__nav__list > ul > li > a:hover,.make__center a:hover{
+    background-color:#19657e1c;
+    border-bottom: 3px solid #19647E;
+    
+}
+
+.header__left__menu{
+    display: none;
+}
+.span__more_vert{
+    display: none;
+
+}
+.make__center a{
+    padding: 10px 10px;
+    text-decoration: none;
+    color: #19647E;
+}
+.make__center__min__block{
+    display: block;
+    /* position: absolute;
+    display: flex;
+    flex-direction: column;
+    top: 55px;
+    padding:10px 15px;
+    background-color: rgba(23, 107, 135, 0.995);
+    color: white;
+    border-radius: 5px; */
+    cursor: pointer;
+}
+.make__center__min__none{
+    display: none;
+}
+.icons__list{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    color: #19647E;
+}
+.icons__list span:hover{
+    color: #19647E;
+
+}
+.logout-icon{
+    display: none;
+    text-decoration: none;
+}
+/* .header-menu__item--active{
+    color: var(--primaryColor);
+    background-color: var(--primaryColor);
+} */
+
+@media (max-width:768px){
+    .header__left__menu{
+        display: block;
+    }
+    .header__nav__list,.icons__list{
+        display: none;
+    }
+    .span__more_vert{
+        display: block;
+        
+    }
+    .make__center{
+        display: none;
+    }
+    .logout-icon{
+        display: block;
+    }
+  
+}

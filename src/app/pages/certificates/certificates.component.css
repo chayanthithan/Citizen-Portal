@@ -1,0 +1,119 @@
+.certificates{
+    height: 78vh;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+}
+.images_div{
+    height: 78vh;
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.images_div img{
+    height: 450px;
+    width: 400px;
+    box-shadow: 1px 1px 3px 0px #19647E;
+    padding: 10px;
+    border-radius: 10px;
+}
+.content{
+    height: 78vh;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    
+}
+.title{
+    width: 100%;
+    height: 8%;
+    background: linear-gradient(135deg, #ffff,#19647E);
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    font-family: serif;
+
+
+}
+.request_content{
+    width: 70%;
+    height: 80%;
+    margin: auto;
+    
+}
+form{
+   padding: 10px;
+   margin-top: 50px;
+   margin-bottom: 50px;
+}
+.form-group{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+}
+.form-group label,input,select{
+    width: 100%;
+    padding: 5px 10px;
+    border-radius: 5px;
+    outline: none;
+}
+.form-group textarea{
+    width: 100%;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+.btn{
+    height: 20%;
+    width: 67%;
+    margin: auto;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+.inner_btn{
+    height: 60%;
+    width: 95%;
+    background-color: #19647E;
+    color: white;
+    border:1px solid transparent;
+    border-radius: 5px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5;
+
+    &:hover{
+        background-color: white;
+        color: #19647E;
+        border: 1px solid #19647E;
+        cursor: pointer;
+
+        button{
+            color: #19647E;
+            cursor: pointer;
+        }
+    }
+    
+}
+.inner_btn button{
+    outline: none;
+    border: none;
+    background-color: transparent;
+    color: white;
+    font-size: 15px;
+}
+.inner_btn span{
+   font-size: 20px;
+   transform: rotate(-20deg);
+   padding-bottom: 5px;
+}

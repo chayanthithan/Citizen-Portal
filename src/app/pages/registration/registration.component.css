@@ -1,0 +1,135 @@
+.registration-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: linear-gradient(135deg, #19657e, #003041);
+    /* background: linear-gradient(135deg, #87CEEB, #ADD8E6);  */
+    /* padding: 20px; */
+  }
+  
+  .registration-card {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 90%;
+    max-width: 600px;
+    padding: 20px;
+    max-height: 90vh; /* Limit height to make the form scrollable */
+    overflow-y: auto; /* Enable vertical scrolling */
+  }
+  
+  .header {
+    text-align: center;
+    margin-bottom: 20px;
+  
+    h1 {
+      font-size: 24px;
+      color: #333;
+      margin-bottom: 10px;
+    }
+  
+    p {
+      font-size: 14px;
+      color: #666;
+    }
+  }
+  
+  .registration-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  .sub_details{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .sub_details .form-group{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 5;
+    &:hover{
+      cursor: pointer;
+    }
+  }
+  .sub_details .form-group input[type='checkbox']{
+    height: 20px;
+    width: 20px;
+
+    &:hover{
+      cursor: pointer;
+    }
+  }
+  .sub_details .form-group select{
+   padding: 5px;
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  
+    label {
+      font-size: 14px;
+      color: #333;
+    }
+    
+    input {
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 14px;
+      outline: none;
+  
+      &:focus {
+        border-color: #3f51b5;
+      }
+    }
+  }
+  
+  .register-button {
+    background-color: #19657e;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  
+    &:hover {
+      background-color:#0f7699e7;
+      color: var();
+    }
+  }
+  
+  .links {
+    text-align: center;
+    margin-top: 20px;
+  
+    p {
+      font-size: 14px;
+      color: #666;
+    }
+  
+    .link {
+      color: #3f51b5;
+      text-decoration: none;
+  
+      &:hover {
+        text-decoration: underline;
+        cursor: pointer;
+      }
+    }
+  }
+  
+  @media (max-width: 600px) {
+    .registration-card {
+      width: 90%;
+      padding: 15px;
+    }
+  }

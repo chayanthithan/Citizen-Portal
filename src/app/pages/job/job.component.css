@@ -1,0 +1,44 @@
+.container{
+    height: 78vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.job_main{
+    height: 300px;
+    width: 50%;
+    border: 1px solid #19657e;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    padding: 20px;
+}
+.job_inner{
+    width: 80%;
+    margin: auto;
+    gap: 10px;
+}
+.form_group{
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-direction: column;
+    padding: 5px;
+}
+.form_group input{
+    width: 100%;
+    padding: 5px;
+}
+.btn_job{
+    width: 98%;
+    margin: auto;
+    padding: 20px 0px;
+    /* border: 1px solid; */
+}
+.btn_job button{
+    width: 100%;
+    padding: 5px;
+}

@@ -1,0 +1,33 @@
+/* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body {
+     margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; 
+        /* background: linear-gradient(135deg, #fff192, #ffea61); */
+}
+
+.img-div{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+  }
+  .img-div img{
+   height: 100px;
+   width: 100px;
+  }
+  .color_level1{
+    color: #ffffb7;
+  }
+  :root {
+    --primary-color: #ffffb7;
+    --secondary-color: #fff192;
+    --background-color: 	#ffea61;
+    --third-level:  #ffdd3c;
+    --fourth-level:  #ffd400;
+
+  }
+  .menu__select{
+    background-color: #19657e;
+    color:white;
+    border:1px solid white;
+}
