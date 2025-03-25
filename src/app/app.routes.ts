@@ -11,28 +11,58 @@ import { GsDetailsComponent } from './pages/gs-details/gs-details.component';
 import { AuthGuard } from './auth.guard';
 import { GenerateCertificatesComponent } from './pages/generate-certificates/generate-certificates.component';
 import { GnDivisionComponent } from './pages/gn-division/gn-division.component';
-import { JobComponent } from './pages/job/job.component';
-import { IncomeComponent } from './pages/income/income.component';
+import { JobComponent } from './job/job.component';
+import { EmployeementComponent } from './pages/employeement/employeement.component';
+import { TabsComponent } from './pages/tabs/tabs.component';
 
 export const routes: Routes = [
-        { path: '', redirectTo: '/login', pathMatch: 'full' },
-        { path: 'login', component: LoginComponent },
-        { path: 'register', component: RegistrationComponent },
-        { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
-        { path: 'index', component: IndexComponent, canActivate: [AuthGuard]  },
-        { path: 'forget-password', component: ForgotPasswordComponent },
-        { path: 'certificates', component: CertificatesComponent, canActivate: [AuthGuard]  },
-        { path: 'user-details', component: UserDetailsComponent, canActivate: [AuthGuard]  },
-        { path: 'gs-details', component: GsDetailsComponent, canActivate: [AuthGuard]  },
-        { path: 'generate-certificates', component: GenerateCertificatesComponent, canActivate: [AuthGuard]  },
-        { path: 'gn-division', component: GnDivisionComponent, canActivate: [AuthGuard]  },
-        { path: 'income/:id', component: IncomeComponent, canActivate: [AuthGuard]  },
-        { path: 'job', component: JobComponent, canActivate: [AuthGuard]  },
-        { path: '**', redirectTo: '/login' },
+  { path: '', redirectTo: '/login', pathMatch: 'full' },
+  { path: 'login', component: LoginComponent },
+  { path: 'register', component: RegistrationComponent },
+  { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
+  { path: 'index', component: IndexComponent, canActivate: [AuthGuard] },
+  { path: 'forget-password', component: ForgotPasswordComponent },
+  {
+    path: 'certificates',
+    component: CertificatesComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'user-details',
+    component: UserDetailsComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'gs-details',
+    component: GsDetailsComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'generate-certificates',
+    component: GenerateCertificatesComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'gn-division',
+    component: GnDivisionComponent,
+    canActivate: [AuthGuard],
+  },
+  { path: 'job', component: JobComponent, canActivate: [AuthGuard] },
+  {
+    path: 'employee/:id',
+    component: EmployeementComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'tabs',
+    component: TabsComponent,
+    canActivate: [AuthGuard],
+  },
+  { path: '**', redirectTo: '/login' },
 ];
 
 @NgModule({
-        imports: [RouterModule.forRoot(routes)],
-        exports: [RouterModule]
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

@@ -1,0 +1,32 @@
+<div class="container">
+  <h2>Add New Employee</h2>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Job Title</mat-label>
+    <mat-select [(ngModel)]="selectedJobId" name="jobId" required>
+      <ng-container *ngFor="let job of jobOptions">
+        <mat-option [value]="job.id">
+          {{ job.title }}
+        </mat-option>
+      </ng-container>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" class="full-width">
+    <mat-label>Start Date</mat-label>
+    <input matInput [matDatepicker]="picker1" [(ngModel)]="startDate" />
+    <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+    <mat-datepicker #picker1></mat-datepicker>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" class="full-width">
+    <mat-label>End Date</mat-label>
+    <input matInput [matDatepicker]="picker2" [(ngModel)]="endDate" />
+    <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+    <mat-datepicker #picker2></mat-datepicker>
+  </mat-form-field>
+
+  <button mat-raised-button color="primary" (click)="addEmployee()">
+    Add Employee
+  </button>
+</div>

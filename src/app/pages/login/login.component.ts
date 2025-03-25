@@ -27,37 +27,33 @@ import { LoginDto } from '../../model/loginDto';
     FormsModule,
     HttpClientModule,
     NgToastModule,
-
-
   ],
-  providers: []
+  providers: [],
 })
 export class LoginComponent implements OnInit {
-  constructor(private router: Router, private toastr: ToastrService) { }
+  constructor(private router: Router, private toastr: ToastrService) {}
   ngOnInit(): void {
-    this.mainService.getDataWithCookies();
+    // this.mainService.getDataWithCookies();
   }
   // import services
 
   loginCredentials: Login = {
     email: '',
-    password: ''
+    password: '',
   };
   loginData: LoginDto = {
     lastName: '',
     email: '',
     roles: [],
     userId: '',
-    firstName: ''
-  }
-
-
+    firstName: '',
+  };
 
   loginService: LoginService = inject(LoginService);
-  mainService: MainService = inject(MainService)
+  mainService: MainService = inject(MainService);
 
   doLogin() {
-    debugger
+    debugger;
     if (this.loginCredentials.email && this.loginCredentials.password) {
       // this.loginData = {
       //   lastName: 'vimal@gmail.com',
@@ -70,22 +66,25 @@ export class LoginComponent implements OnInit {
       let getData = this.loginService.loginUser(this.loginCredentials);
       getData.subscribe({
         next: (response) => {
-
           sessionStorage.setItem('loginDto', JSON.stringify(response));
           this.mainService.loginDto = response;
-          this.mainService.loginDto.roles.forEach(role => { this.mainService.isRole = role })
-          this.toastr.success('Login Successful!', this.mainService.loginDto.lastName);
+          this.mainService.loginDto.roles.forEach((role) => {
+            this.mainService.isRole = role;
+          });
+          this.toastr.success(
+            'Login Successful!',
+            this.mainService.loginDto.lastName
+          );
           // this.router.navigate(['index']);
-          const returnUrl = this.router.parseUrl(this.router.url).queryParams['returnUrl'] || '/index';
-
+          const returnUrl =
+            this.router.parseUrl(this.router.url).queryParams['returnUrl'] ||
+            '/index';
 
           this.router.navigateByUrl(returnUrl);
-
         },
         error: (error) => {
-
-          this.toastr.error("login failed", error.status);
-        }
+          this.toastr.error('login failed', error.status);
+        },
       });
 
       // delete below code once everything got fine
@@ -100,8 +99,5 @@ export class LoginComponent implements OnInit {
       //   console.error('Username and password are required');
       //  }
     }
-
   }
-
-
 }

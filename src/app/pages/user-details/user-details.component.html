@@ -1,22 +1,42 @@
 <div *ngIf="!isRequestCertificate" class="DS_section">
-    <div class="btn">
-        <div class="filter_category">
-            <div>
-                <input type="text" placeholder="FirstName" [(ngModel)]="filterCitizenDto.firstName">
-            </div>
-            <div>
-                <input type="number" placeholder="ageFrom" [(ngModel)]="filterCitizenDto.ageFrom">
-            </div>
-            <div>
-                <input type="number" placeholder="ageTo" [(ngModel)]="filterCitizenDto.ageTo">
-            </div>
-            <div>
-                <input type="text" placeholder="nic" [(ngModel)]="filterCitizenDto.nic">
-            </div>
-            <div>
-                <input type="text" placeholder="family card number" [(ngModel)]="filterCitizenDto.familyCardNo">
-            </div>
-            <!-- <div>
+  <div class="btn">
+    <div class="filter_category">
+      <div>
+        <input
+          type="text"
+          placeholder="FirstName"
+          [(ngModel)]="filterCitizenDto.firstName"
+        />
+      </div>
+      <div>
+        <input
+          type="number"
+          placeholder="ageFrom"
+          [(ngModel)]="filterCitizenDto.ageFrom"
+        />
+      </div>
+      <div>
+        <input
+          type="number"
+          placeholder="ageTo"
+          [(ngModel)]="filterCitizenDto.ageTo"
+        />
+      </div>
+      <div>
+        <input
+          type="text"
+          placeholder="nic"
+          [(ngModel)]="filterCitizenDto.nic"
+        />
+      </div>
+      <div>
+        <input
+          type="text"
+          placeholder="family card number"
+          [(ngModel)]="filterCitizenDto.familyCardNo"
+        />
+      </div>
+      <!-- <div>
                 <select name="certificates" id="certificates" [(ngModel)]="filterCitizenDto.typeOfCertificate">
                     <option value="" disabled>Choose Certificates..</option>
                     <option value="CHARACTER_CERTIFICATE">Character Certificate</option>
@@ -24,208 +44,250 @@
                     <option value="Residency Certificates">Residency Certificates</option>
                 </select>
             </div> -->
-            <div>
-                <select name="status" id="status" [(ngModel)]="filterCertificateDto.requestStatus">
-                    <option value="" disabled>Choose status..</option>
-                    <option value="APPROVED">APPROVED</option>
-                    <option value="REJECTED">REJECTED</option>
-                </select>
-            </div>
-            <div class="search" (click)="getCitizenByFilter()">
-                <!-- <input type="text"> -->
-                <span class="material-symbols-outlined">search</span>
-            </div>
-        </div>
-        <div class="requests" (click)="requestCertificates()">
-            <button>Certificate Requests</button>
-        </div>
+      <div>
+        <select
+          name="status"
+          id="status"
+          [(ngModel)]="filterCertificateDto.requestStatus"
+        >
+          <option value="" disabled>Choose status..</option>
+          <option value="APPROVED">APPROVED</option>
+          <option value="REJECTED">REJECTED</option>
+        </select>
+      </div>
+      <div class="search" (click)="getCitizenByFilter()">
+        <!-- <input type="text"> -->
+        <span class="material-symbols-outlined">search</span>
+      </div>
     </div>
-    <div class="mat-elevation-z8">
-        <table mat-table [dataSource]="dataSource">
-
-            <!-- Position Column -->
-            <ng-container matColumnDef="Firstname">
-                <th mat-header-cell *matHeaderCellDef> Firstname. </th>
-                <td mat-cell *matCellDef="let element"> {{element.Firstname}} </td>
-            </ng-container>
-
-            <!-- Name Column -->
-            <ng-container matColumnDef="LastName">
-                <th mat-header-cell *matHeaderCellDef> LastName </th>
-                <td mat-cell *matCellDef="let element"> {{element.LastName}} </td>
-            </ng-container>
-
-            <!-- Weight Column -->
-            <ng-container matColumnDef="Address">
-                <th mat-header-cell *matHeaderCellDef> Address </th>
-                <td mat-cell *matCellDef="let element"> {{element.Address}} </td>
-            </ng-container>
-
-            <!-- Symbol Column -->
-            <ng-container matColumnDef="FamilyCardNo">
-                <th mat-header-cell *matHeaderCellDef> FamilyCardNo </th>
-                <td mat-cell *matCellDef="let element"> {{element.FamilyCardNo}} </td>
-            </ng-container>
-
-            <ng-container matColumnDef="DOB">
-                <th mat-header-cell *matHeaderCellDef> DOB </th>
-                <td mat-cell *matCellDef="let element"> {{element.DOB}} </td>
-            </ng-container>
-
-            <ng-container matColumnDef="Email">
-                <th mat-header-cell *matHeaderCellDef> Email </th>
-                <td mat-cell *matCellDef="let element"> {{element.Email}} </td>
-            </ng-container>
-
-            <ng-container matColumnDef="TelNO">
-                <th mat-header-cell *matHeaderCellDef> TelNO </th>
-                <td mat-cell *matCellDef="let element"> {{element.TelNO}} </td>
-            </ng-container>
-            <ng-container matColumnDef="Action">
-                <th mat-header-cell *matHeaderCellDef> Action </th>
-                <td mat-cell *matCellDef="let element" (click)="viewUser(element)"> <button>View</button> </td>
-            </ng-container>
-
-            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-        </table>
-
-        <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons
-            aria-label="Select page of periodic elements">
-        </mat-paginator>
+    <div class="requests" (click)="requestCertificates()">
+      <button>Certificate Requests</button>
     </div>
+  </div>
+  <div class="mat-elevation-z8">
+    <table mat-table [dataSource]="dataSource">
+      <!-- Position Column -->
+      <ng-container matColumnDef="Firstname">
+        <th mat-header-cell *matHeaderCellDef>Firstname.</th>
+        <td mat-cell *matCellDef="let element">{{ element.Firstname }}</td>
+      </ng-container>
 
+      <!-- Name Column -->
+      <ng-container matColumnDef="LastName">
+        <th mat-header-cell *matHeaderCellDef>LastName</th>
+        <td mat-cell *matCellDef="let element">{{ element.LastName }}</td>
+      </ng-container>
 
+      <!-- Weight Column -->
+      <ng-container matColumnDef="Address">
+        <th mat-header-cell *matHeaderCellDef>Address</th>
+        <td mat-cell *matCellDef="let element">{{ element.Address }}</td>
+      </ng-container>
+
+      <!-- Symbol Column -->
+      <ng-container matColumnDef="FamilyCardNo">
+        <th mat-header-cell *matHeaderCellDef>FamilyCardNo</th>
+        <td mat-cell *matCellDef="let element">{{ element.FamilyCardNo }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="DOB">
+        <th mat-header-cell *matHeaderCellDef>DOB</th>
+        <td mat-cell *matCellDef="let element">{{ element.DOB }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="Email">
+        <th mat-header-cell *matHeaderCellDef>Email</th>
+        <td mat-cell *matCellDef="let element">{{ element.Email }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="TelNO">
+        <th mat-header-cell *matHeaderCellDef>TelNO</th>
+        <td mat-cell *matCellDef="let element">{{ element.TelNO }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="action">
+        <th mat-header-cell *matHeaderCellDef>Actions</th>
+        <td mat-cell *matCellDef="let element">
+          <button
+            mat-raised-button
+            color="primary"
+            (click)="openAddEmployeeForm(element)"
+          >
+            Add Employee
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+
+    <mat-paginator
+      [pageSizeOptions]="[5, 10, 20]"
+      showFirstLastButtons
+      aria-label="Select page of periodic elements"
+    >
+    </mat-paginator>
+  </div>
 </div>
 
 <!-- certificate requests -->
 
 <div *ngIf="isRequestCertificate" class="DS_section">
-    <div class="title">
-        <div>
-            <h4>User's Requests</h4>
-        </div>
-                <div class="filter_category">
-                    <div>
-                        <select name="certificates" id="certificates"
-                            [(ngModel)]="filterCertificateDto.typeOfCertificate">
-                            <option value="" disabled>Choose Certificates..</option>
-                            <option value="CHARACTER_CERTIFICATE">Character Certificate</option>
-                            <option value="Income Certificates">Income Certificates</option>
-                            <option value="Residency Certificates">Residency Certificates</option>
-                        </select>
-                    </div>
-                    <div>
-                        <select name="status" id="status" [(ngModel)]="filterCertificateDto.requestStatus">
-                            <option value="" disabled>Choose status..</option>
-                            <option value="APPROVED">APPROVED</option>
-                            <option value="REJECTED">REJECTED</option>
-                        </select>
-                    </div>
-                    <div>
-                        <input type="date" placeholder="requested date"
-                            [(ngModel)]="filterCertificateDto.requestedDateFrom">
-                    </div>
-                    <div>
-                        <input type="date" placeholder="requested date"
-                            [(ngModel)]="filterCertificateDto.requestedDateTo">
-                    </div>
-                    <div class="search" (click)="filetrCertificateRequest()">
-                        <!-- <input type="text"> -->
-                        <span class="material-symbols-outlined">search</span>
-                    </div>
-                </div>
-                <!-- <div class="requests" (click)="requestCertificates()">
+  <div class="title">
+    <div>
+      <h4>User's Requests</h4>
+    </div>
+    <div class="filter_category">
+      <div>
+        <select
+          name="certificates"
+          id="certificates"
+          [(ngModel)]="filterCertificateDto.typeOfCertificate"
+        >
+          <option value="" disabled>Choose Certificates..</option>
+          <option value="CHARACTER_CERTIFICATE">Character Certificate</option>
+          <option value="Income Certificates">Income Certificates</option>
+          <option value="Residency Certificates">Residency Certificates</option>
+        </select>
+      </div>
+      <div>
+        <select
+          name="status"
+          id="status"
+          [(ngModel)]="filterCertificateDto.requestStatus"
+        >
+          <option value="" disabled>Choose status..</option>
+          <option value="APPROVED">APPROVED</option>
+          <option value="REJECTED">REJECTED</option>
+        </select>
+      </div>
+      <div>
+        <input
+          type="date"
+          placeholder="requested date"
+          [(ngModel)]="filterCertificateDto.requestedDateFrom"
+        />
+      </div>
+      <div>
+        <input
+          type="date"
+          placeholder="requested date"
+          [(ngModel)]="filterCertificateDto.requestedDateTo"
+        />
+      </div>
+      <div class="search" (click)="filetrCertificateRequest()">
+        <!-- <input type="text"> -->
+        <span class="material-symbols-outlined">search</span>
+      </div>
+    </div>
+    <!-- <div class="requests" (click)="requestCertificates()">
                     <button>Certificate Requests</button>
                 </div> -->
+  </div>
+
+  <div class="mat-elevation-z8">
+    <table mat-table [dataSource]="dataSource_RequestCertificates">
+      <!-- Position Column -->
+      <ng-container matColumnDef="typeOfCertificate">
+        <th mat-header-cell *matHeaderCellDef>typeOfCertificate.</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.typeOfCertificate }}
+        </td>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="reason">
+        <th mat-header-cell *matHeaderCellDef>reason</th>
+        <td mat-cell *matCellDef="let element">{{ element.reason }}</td>
+      </ng-container>
+
+      <!-- Weight Column -->
+      <ng-container matColumnDef="requestedOrganization">
+        <th mat-header-cell *matHeaderCellDef>requestedOrganization</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.requestedOrganization }}
+        </td>
+      </ng-container>
+
+      <!-- Symbol Column -->
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef>status</th>
+        <td mat-cell *matCellDef="let element">{{ element.status }}</td>
+      </ng-container>
+      <!-- Symbol Column -->
+      <ng-container matColumnDef="rejectionReason">
+        <th mat-header-cell *matHeaderCellDef>rejectionReason</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.rejectionReason }}
+        </td>
+      </ng-container>
+      <!-- Symbol Column -->
+      <ng-container matColumnDef="requestedDate">
+        <th mat-header-cell *matHeaderCellDef>requestedDate</th>
+        <td mat-cell *matCellDef="let element">{{ element.requestedDate }}</td>
+      </ng-container>
+      <!-- Symbol Column -->
+      <ng-container matColumnDef="requestStatusUpdateDate">
+        <th mat-header-cell *matHeaderCellDef>requestStatusUpdateDate</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.requestStatusUpdateDate }}
+        </td>
+      </ng-container>
+      <!-- Symbol Column -->
+      <ng-container matColumnDef="requestedBy">
+        <th mat-header-cell *matHeaderCellDef>requestedBy</th>
+        <td mat-cell *matCellDef="let element">{{ element.requestedBy }}</td>
+      </ng-container>
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef>id</th>
+        <td mat-cell *matCellDef="let element">{{ element.id }}</td>
+      </ng-container>
+      <ng-container matColumnDef="citizenId">
+        <th mat-header-cell *matHeaderCellDef>citizenId</th>
+        <td mat-cell *matCellDef="let element">{{ element.citizenId }}</td>
+      </ng-container>
+
+      <!-- Action -->
+      <ng-container matColumnDef="action">
+        <th mat-header-cell *matHeaderCellDef>action</th>
+        <td mat-cell *matCellDef="let element" class="action">
+          <button class="btn_view" (click)="doApprove(element)">Approve</button>
+          <!--routerLink="/generate-certificates"-->
+          <button class="btn_view" (click)="doReject()">Reject</button>
+        </td>
+      </ng-container>
+
+      <tr
+        mat-header-row
+        *matHeaderRowDef="displayedColumns_RequestCertificates"
+      ></tr>
+      <tr
+        mat-row
+        *matRowDef="let row; columns: displayedColumns_RequestCertificates"
+      ></tr>
+    </table>
+
+    <mat-paginator
+      [pageSizeOptions]="[5, 10, 20]"
+      showFirstLastButtons
+      aria-label="Select page of periodic elements"
+    >
+    </mat-paginator>
+  </div>
+
+  <div class="reject_main" *ngIf="!mainService.isReject">
+    <div class="reject_inner">
+      <div class="go_back" (click)="doReject()" role="button">
+        <span class="material-symbols-outlined">keyboard_backspace</span>
+      </div>
+      <div class="form_group">
+        <label for="reject">Reason</label>
+        <input type="text" id="reject" />
+      </div>
+      <div class="btn_reject">
+        <button>Reject</button>
+      </div>
     </div>
-
-    <div class="mat-elevation-z8">
-        <table mat-table [dataSource]="dataSource_RequestCertificates">
-
-            <!-- Position Column -->
-            <ng-container matColumnDef="typeOfCertificate">
-                <th mat-header-cell *matHeaderCellDef> typeOfCertificate. </th>
-                <td mat-cell *matCellDef="let element"> {{element.typeOfCertificate}} </td>
-            </ng-container>
-
-            <!-- Name Column -->
-            <ng-container matColumnDef="reason">
-                <th mat-header-cell *matHeaderCellDef> reason </th>
-                <td mat-cell *matCellDef="let element"> {{element.reason}} </td>
-            </ng-container>
-
-            <!-- Weight Column -->
-            <ng-container matColumnDef="requestedOrganization">
-                <th mat-header-cell *matHeaderCellDef> requestedOrganization </th>
-                <td mat-cell *matCellDef="let element"> {{element.requestedOrganization}} </td>
-            </ng-container>
-
-            <!-- Symbol Column -->
-            <ng-container matColumnDef="status">
-                <th mat-header-cell *matHeaderCellDef> status </th>
-                <td mat-cell *matCellDef="let element"> {{element.status}} </td>
-            </ng-container>
-            <!-- Symbol Column -->
-            <ng-container matColumnDef="rejectionReason">
-                <th mat-header-cell *matHeaderCellDef> rejectionReason </th>
-                <td mat-cell *matCellDef="let element"> {{element.rejectionReason}} </td>
-            </ng-container>
-            <!-- Symbol Column -->
-            <ng-container matColumnDef="requestedDate">
-                <th mat-header-cell *matHeaderCellDef> requestedDate </th>
-                <td mat-cell *matCellDef="let element"> {{element.requestedDate}} </td>
-            </ng-container>
-            <!-- Symbol Column -->
-            <ng-container matColumnDef="requestStatusUpdateDate">
-                <th mat-header-cell *matHeaderCellDef> requestStatusUpdateDate </th>
-                <td mat-cell *matCellDef="let element"> {{element.requestStatusUpdateDate}} </td>
-            </ng-container>
-            <!-- Symbol Column -->
-            <ng-container matColumnDef="requestedBy">
-                <th mat-header-cell *matHeaderCellDef> requestedBy </th>
-                <td mat-cell *matCellDef="let element"> {{element.requestedBy}} </td>
-            </ng-container>
-            <!-- <ng-container matColumnDef="id">
-                <th mat-header-cell *matHeaderCellDef> id </th>
-                <td mat-cell *matCellDef="let element"> {{element.id}} </td>
-            </ng-container>
-            <ng-container matColumnDef="citizenId">
-                <th mat-header-cell *matHeaderCellDef> citizenId </th>
-                <td mat-cell *matCellDef="let element"> {{element.citizenId}} </td>
-            </ng-container> -->
-
-            <!-- Action -->
-            <ng-container matColumnDef="action">
-                <th mat-header-cell *matHeaderCellDef> action </th>
-                <td mat-cell *matCellDef="let element" class="action">
-                    <button class="btn_view" (click)="doApprove(element)" *ngIf="element.status != 'REJECTED' || element.status != 'APPROVED' "> Approve</button> <!--routerLink="/generate-certificates"-->
-                    <button class="btn_view" (click)="doReject(element)" *ngIf="element.status != 'REJECTED' || element.status != 'APPROVED' "> Reject</button>
-                </td>
-            </ng-container>
-
-            <tr mat-header-row *matHeaderRowDef="displayedColumns_RequestCertificates"></tr>
-            <tr mat-row *matRowDef="let row; columns: displayedColumns_RequestCertificates;"></tr>
-        </table>
-
-        <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons
-            aria-label="Select page of periodic elements">
-        </mat-paginator>
-    </div>
-
-
-    <div class="reject_main" *ngIf="!mainService.isReject">
-        <div class="reject_inner">
-            <div class="go_back" (click)="enableReject()" role="button">
-                <span class="material-symbols-outlined">keyboard_backspace</span>
-            </div>
-            <div class="form_group" >
-                <label for="reson">Reason</label>
-                <input [(ngModel)]="this.rejectDto.rejectReason" type="text" id="reson" name="reson">
-            </div>
-            <div class="btn_reject">
-                <button (click)="callRejectedFunction()">Reject</button>
-            </div>
-        </div>
-    </div>
+  </div>
 </div>

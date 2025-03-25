@@ -1,0 +1,21 @@
+<mat-tab-group>
+  <mat-tab
+    label="Employee"
+    [routerLink]="['/employee/:id']"
+    routerLinkActive="active"
+  >
+    <div class="tab-content">
+      <router-outlet></router-outlet>
+    </div>
+  </mat-tab>
+
+  <mat-tab
+    label="Educational"
+    [routerLink]="['/educational']"
+    routerLinkActive="active"
+  >
+    <div class="tab-content">
+      <router-outlet></router-outlet>
+    </div>
+  </mat-tab>
+</mat-tab-group>

@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@angular/core';
 import { Login } from '../model/Login';
 import { Customer } from '../model/Customer';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { LoginDto } from '../model/loginDto';
 import { StorageService } from './storage.service';
 import { Register } from '../model/register';
@@ -15,20 +15,22 @@ import { GnDivisionResponse } from '../model/gnDivisionResponse';
 import { CitizenResponseDto } from '../model/citizenResponseDto';
 import { CertificateResponseDto } from '../model/CertificateResponseDto';
 import { ApprovedByDto } from '../model/approvedByDto';
-import { RejectDto } from '../model/RejectDto';
+import { Console } from 'console';
+import { EmploymentDto } from '../model/EmploymentDto';
 import { Job } from '../model/Job';
-import { IncomeDto } from '../model/incomeDto';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class MainService {
-  constructor(private http: HttpClient, private storageService: StorageService, @Inject(DOCUMENT) private document: HTMLDocument) {
+  constructor(
+    private http: HttpClient,
+    private storageService: StorageService,
+    @Inject(DOCUMENT) private document: HTMLDocument
+  ) {
     this.loadLoginDtoFromSessionStorage();
-    console.log("loginDto:", this.loginDto)
+    console.log('loginDto:', this.loginDto);
   }
-
-
 
   loginData!: Login;
   isMinimized: boolean = true;
@@ -37,31 +39,46 @@ export class MainService {
   isLogged: boolean = true;
   // this is for if gs reject user certificate request
   isReject: boolean = true;
-  isRole: String = '';  //user , GS , DS
+  isRole: String = ''; //user , GS , DS
 
   loginDto: LoginDto = {
     lastName: '',
     email: '',
     roles: [],
     userId: '',
-    firstName: ''
-  }
-
+    firstName: '',
+  };
 
   resetMenu() {
-    document.getElementById('home_screen')?.classList.remove(...['menu__select']);
+    document
+      .getElementById('home_screen')
+      ?.classList.remove(...['menu__select']);
     document.getElementById('gs_screen')?.classList.remove(...['menu__select']);
-    document.getElementById('certificate_screen')?.classList.remove(...['menu__select']);
-    document.getElementById('user_screen')?.classList.remove(...['menu__select']);
-    document.getElementById('reports_screen')?.classList.remove(...['menu__select']);
-    document.getElementById('vote_screen')?.classList.remove(...['menu__select']);
-    document.getElementById('employment_screen')?.classList.remove(...['menu__select']);
-    document.getElementById('notification_screen')?.classList.remove(...['menu__select']);
-    document.getElementById('setting_screen')?.classList.remove(...['menu__select']);
-    document.getElementById('logout_screen')?.classList.remove(...['menu__select']);
+    document
+      .getElementById('certificate_screen')
+      ?.classList.remove(...['menu__select']);
+    document
+      .getElementById('user_screen')
+      ?.classList.remove(...['menu__select']);
+    document
+      .getElementById('reports_screen')
+      ?.classList.remove(...['menu__select']);
+    document
+      .getElementById('vote_screen')
+      ?.classList.remove(...['menu__select']);
+    document
+      .getElementById('employment_screen')
+      ?.classList.remove(...['menu__select']);
+    document
+      .getElementById('notification_screen')
+      ?.classList.remove(...['menu__select']);
+    document
+      .getElementById('setting_screen')
+      ?.classList.remove(...['menu__select']);
+    document
+      .getElementById('logout_screen')
+      ?.classList.remove(...['menu__select']);
   }
-
-
 
   toggle() {
     this.isMinimized = !this.isMinimized;
@@ -72,9 +89,12 @@ export class MainService {
   }
 
   isAuthenticated(): boolean {
-    return !!this.loginDto.lastName || !!this.loginDto.email || this.loginDto.roles.length > 0;
+    return (
+      !!this.loginDto.lastName ||
+      !!this.loginDto.email ||
+      this.loginDto.roles.length > 0
+    );
   }
-
 
   loadLoginDtoFromSessionStorage(): void {
     const loginDtoJson = this.storageService.getItem('loginDto');
@@ -91,8 +111,6 @@ export class MainService {
     this.storageService.removeItem('loginDto');
   }
 
-
-
   // components
 
   // ----------------------        register
@@ -100,6 +118,9 @@ export class MainService {
     return this.http.post(environment.citizenApi, registerDetails);
   }
 
+  approvedCertificates(approvedDto: ApprovedByDto): Observable<any> {
+    return this.http.post(environment.approvedCertificateApi, approvedDto);
+  }
 
   // -----------------------------reset password
   getUserForgetPassword(email: String): Observable<any> {
@@ -116,17 +137,22 @@ export class MainService {
     return this.http.post(environment.addCertificateApi, certificateDto);
   }
 
-  rejectCertificates(rejectDto: RejectDto): Observable<any> {
-    return this.http.post(environment.rejectCertificateApi, rejectDto);
-  }
-
-  approvedCertificates(approvedDto: ApprovedByDto): Observable<any> {
-    return this.http.post(environment.approvedCertificateApi, approvedDto);
-  }
-
   //filter certificates
-  filetrCertificateRequest(filterCertificateDto: FilterCertificateDto): Observable<CertificateResponseDto[]> {
-    return this.http.get<CertificateResponseDto[]>(`${environment.filterCertificate}?typeOfCertificate=${filterCertificateDto.typeOfCertificate}&requestStatus=${filterCertificateDto.requestStatus}&requestedDateFrom=${filterCertificateDto.requestedDateFrom}&requestStatus=${filterCertificateDto.requestStatus}&requestedDateTo=${filterCertificateDto.requestedDateTo}`)
+  filterCertificateRequest(
+    filterCertificateDto: FilterCertificateDto
+  ): Observable<CertificateResponseDto[]> {
+    let urlParams = new HttpParams()
+      .set('typeOfCertificate', filterCertificateDto.typeOfCertificate)
+      .set('requestStatus', filterCertificateDto.requestStatus)
+      .set('requestedDateFrom', filterCertificateDto.requestedDateFrom)
+      .set('requestedDateTo', filterCertificateDto.requestedDateTo);
+
+    return this.http.get<CertificateResponseDto[]>(
+      `${environment.filterCertificate}`,
+      {
+        params: urlParams,
+      }
+    );
   }
 
   //get All certificate Details
@@ -139,18 +165,19 @@ export class MainService {
     return this.http.get<GnDivisionResponse[]>(environment.getAllGnDivisionApi);
   }
 
-
   getDataWithCookies() {
-    return this.http.get('your-api-endpoint', { observe: 'response' })
-      .subscribe(response => {
+    return this.http
+      .get('your-api-endpoint', { observe: 'response' })
+      .subscribe((response) => {
         // Get all cookies from response headers
         const cookies = response.headers.get('set-cookie');
         console.log('All cookies:', cookies);
 
         // To extract specific cookie like JSESSIONID
         if (cookies) {
-          const jsessionId = cookies.split(';')
-            .find(c => c.trim().startsWith('JSESSIONID='))
+          const jsessionId = cookies
+            .split(';')
+            .find((c) => c.trim().startsWith('JSESSIONID='))
             ?.split('=')[1];
           console.log('JSESSIONID:', jsessionId);
         }
@@ -159,22 +186,45 @@ export class MainService {
 
   // citizen apies
   getAllCitizenDetails(): Observable<CitizenResponseDto[]> {
-    return this.http.get<CitizenResponseDto[]>(environment.getAllCitizen)
-  }
-  
-  filterCitizenDetails(nic: string | null, firstName: string | null, familyCardNo: string | null, ageFrom: string, ageTo: string, gnId: string): Observable<CitizenResponseDto[]> {
-    return this.http.get<CitizenResponseDto[]>(`${environment.filterCitizenApi}?nic=${nic}&firstName=${firstName}&ageFrom=${ageFrom}&ageTo=${ageTo}&gnId=${gnId}&familyCardNo=${familyCardNo}`)
-  }
-  
-  // add job 
-  addJobDetails(jobDto:Job): Observable<Job> {
-    return this.http.post<Job>(environment.addJobApi,jobDto)
+    return this.http.get<CitizenResponseDto[]>(environment.getAllCitizen);
   }
 
-  // add income details
-  addIncomeDetails(incomeDto:IncomeDto): Observable<IncomeDto> {
-    return this.http.post<IncomeDto>(environment.addIncomeApi,incomeDto)
+  addJobDetails(jobDto: Job): Observable<Job> {
+    return this.http.post<Job>(environment.addjob, jobDto);
   }
 
+  getAllJobs(): Observable<Job[]> {
+    return this.http.get<Job[]>(environment.getjob);
+  }
 
+  filterCitizenDetails(
+    nic: string | null,
+    firstName: string | null,
+    familyCardNo: string | null,
+    ageFrom: string,
+    ageTo: string,
+    gnId: string
+  ): Observable<CitizenResponseDto[]> {
+    let urlParms = new HttpParams();
+
+    // Append each parameter correctly
+    urlParms = urlParms.append('ageFrom', ageFrom || '');
+    urlParms = urlParms.append('ageTo', ageTo || '');
+    if (nic) urlParms = urlParms.append('nic', nic);
+    if (firstName) urlParms = urlParms.append('firstName', firstName);
+    if (familyCardNo) urlParms = urlParms.append('familyCardNo', familyCardNo);
+    if (gnId) urlParms = urlParms.append('gnId', gnId);
+
+    const url = environment.filterCitizenApi;
+    console.log('url : ', url);
+
+    return this.http.get<any>(url, {
+      params: urlParms,
+      headers: {},
+    });
+  }
+
+  addEmployee(employeeData: EmploymentDto): Observable<EmploymentDto> {
+    return this.http.post<EmploymentDto>(environment.addemployee, employeeData);
+  }
 }

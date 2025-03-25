@@ -11,22 +11,22 @@ import { error } from 'console';
 
 @Component({
   selector: 'app-registration',
-  imports: [RouterLink,CommonModule,FormsModule,NgToastModule],
+  imports: [RouterLink, CommonModule, FormsModule, NgToastModule],
   templateUrl: './registration.component.html',
-  styleUrl: './registration.component.css'
+  styleUrl: './registration.component.css',
 })
-export class RegistrationComponent implements OnInit{
-  constructor(private toastr:ToastrService,private route:Router){
-    console.log(this.civilType)
+export class RegistrationComponent implements OnInit {
+  constructor(private toastr: ToastrService, private route: Router) {
+    console.log(this.civilType);
   }
   ngOnInit(): void {
-    this.getAllGnDivision();
+    // this.getAllGnDivision();
   }
   //import services
-  __main:MainService = inject(MainService);
+  __main: MainService = inject(MainService);
 
-  civilType:string = '';
-  registerDto:Register={
+  civilType: string = '';
+  registerDto: Register = {
     firstName: '',
     lastName: '',
     username: '',
@@ -43,34 +43,35 @@ export class RegistrationComponent implements OnInit{
     child: false,
     familyCardNo: '',
     gramaNiladhariId: '',
-    nic:''
-  }
+    nic: '',
+  };
 
-  gnDivisionResponseDto:GnDivisionResponse[] = [];
+  // gnDivisionResponseDto: GnDivisionResponse[] = [];
 
-  doRegister(){
+  doRegister() {
     this.registerDto.gramaNiladhariId = this.__main.loginDto.userId;
     const getData = this.__main.registerUser(this.registerDto);
     getData.subscribe({
-      next:(response) =>{
+      next: (response) => {
         this.toastr.success('Register Successful!', this.registerDto.firstName);
         this.route.navigateByUrl('/login');
-      },error:(error)=>{
-        this.toastr.error("Something Wrong!", error.status);
-      }
-    })
-    
+      },
+      error: (error) => {
+        this.toastr.error('Something Wrong!', error.status);
+      },
+    });
   }
   // get all gn division
-  getAllGnDivision(){
-    const getData = this.__main.getAllGnDivisions();
-    getData.subscribe({
-      next:(response:GnDivisionResponse[])=>{
-        this.gnDivisionResponseDto = response;
-        console.log('get all divisions:',this.gnDivisionResponseDto )
-      },error:(error)=>{
-        this.toastr.error("Something Wrong to fetch Gn Division", error.status);
-      }
-    })
-  }
+  // getAllGnDivision() {
+  //   const getData = this.__main.getAllGnDivisions();
+  //   getData.subscribe({
+  //     next: (response: GnDivisionResponse[]) => {
+  //       this.gnDivisionResponseDto = response;
+  //       console.log('get all divisions:', this.gnDivisionResponseDto);
+  //     },
+  //     error: (error) => {
+  //       this.toastr.error('Something Wrong to fetch Gn Division', error.status);
+  //     },
+  //   });
+  // }
 }
