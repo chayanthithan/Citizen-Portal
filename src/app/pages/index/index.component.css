@@ -253,4 +253,10 @@ table {
     width: 100%;
   }
 
-  /*  */
+  /*  news*/
+  .news{
+    cursor: pointer;
+    &:hover{
+        color: rgb(0, 89, 255);
+    }
+  }

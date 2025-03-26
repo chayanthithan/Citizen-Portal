@@ -20,6 +20,8 @@ import { CitizenResponseDto } from '../../model/citizenResponseDto';
 import { FilterCitizenDto } from '../../model/filterCitizenDto';
 import { ApprovedByDto } from '../../model/approvedByDto';
 import { Router } from '@angular/router';
+import { RejectDto } from '../../model/RejectDto';
+import { response } from 'express';
 
 @Component({
   selector: 'app-user-details',
@@ -56,7 +58,11 @@ export class UserDetailsComponent implements OnInit, AfterViewInit {
     ageFrom: '',
     ageTo: '',
   };
-
+  rejectDto:RejectDto={
+    certificateId: '',
+    rejectReason: '',
+    rejectedBy: ''
+  }
   approvedDto: ApprovedByDto = {
     certificateId: '',
     updatedById: '',
@@ -134,8 +140,24 @@ export class UserDetailsComponent implements OnInit, AfterViewInit {
     this.isRequestCertificate = true;
   }
 
-  doReject() {
+  enableReject(element:any) {
     this.mainService.isReject = !this.mainService.isReject;
+    this.rejectDto.certificateId = element.id;
+    this.rejectDto.rejectedBy = this.mainService.loginDto.userId;
+  }
+  disableReject(){
+    this.mainService.isReject = !this.mainService.isReject;
+  }
+  doReject(){
+    
+    this.mainService.rejectCertificates(this.rejectDto).subscribe({
+      next:(response)=>{
+        this.toastr.success('successfully rejected');
+        this.mainService.isReject = !this.mainService.isReject;
+      },error:(error)=>{
+        this.toastr.error('could not reject ! try again');
+      }
+    })
   }
 
   doApprove(element: RequestCertificate) {
@@ -143,9 +165,9 @@ export class UserDetailsComponent implements OnInit, AfterViewInit {
     this.approvedDto.updatedById = this.mainService.loginDto.userId;
 
     this.mainService.approvedCertificates(this.approvedDto).subscribe({
-      next: () => {
+      next: (response) => {
         this.toastr.success('Successfully Approved!');
-        this.filetrCertificateRequest(); // Refresh table
+        this.filetrCertificateRequest();
       },
       error: (error) => {
         this.toastr.error('Something went wrong!', error.status);

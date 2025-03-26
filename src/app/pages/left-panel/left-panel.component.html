@@ -11,6 +11,12 @@
     </div>
     <div><a class="left__menu__name" >GS</a></div>
   </div>
+  <div *ngIf="mainservice.loginDto.roles[0] === 'GS'" class="left__menu" id="gs_screen" routerLink="/register" routerLinkActive="menu__select">
+    <div class="left__menu__icon material-symbols-outlined icon__size">
+      person
+    </div>
+    <div><a class="left__menu__name" >Register</a></div>
+  </div>
 
   <div *ngIf="mainservice.loginDto.roles[0] === 'PEOPLE'" class="left__menu" id="certificate_screen" routerLink="/certificates" routerLinkActive="menu__select">
     <div class="left__menu__icon material-symbols-outlined icon__size">

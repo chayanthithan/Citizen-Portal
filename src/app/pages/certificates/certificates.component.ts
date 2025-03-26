@@ -34,6 +34,12 @@ constructor(private toastr:ToastrService){}
     getData.subscribe({
       next:(response) =>{
         this.toastr.success('Successfully send!');
+        this.certificateDto={
+          typeOfCertificate: '',
+          reason: '',
+          requestedOrganization: '',
+          userId: ''
+        }
       },error:(error)=>{
         // this.toastr.success('Successfully send!');  //this is for test
         this.toastr.error("Something Wrong!", error.status);

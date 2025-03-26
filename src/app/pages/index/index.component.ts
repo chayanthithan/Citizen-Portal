@@ -55,10 +55,10 @@ export class IndexComponent implements OnInit {
             this.mainService.isRole = role;
           });
   
-          this.toastr.success(
-            'Login Successful!',
-            this.mainService.loginDto.lastName
-          );
+          // this.toastr.success(
+          //   'Login Successful!',
+          //   this.mainService.loginDto.lastName
+          // );
           // this.router.navigate(['/index']);
         } else {
           this.toastr.error('Login failed: No user data received');

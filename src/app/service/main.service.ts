@@ -22,6 +22,7 @@ import { IncomeDto } from '../model/incomeDto';
 import { GnDivisionDto } from '../model/GnDivisionDto';
 import { GramaNiladhari } from '../model/GramaNiladhari';
 import { GramaNiladhariResponse } from '../model/GramaNiladhariResponse';
+import { RejectDto } from '../model/RejectDto';
 
 @Injectable({
   providedIn: 'root',
@@ -125,6 +126,9 @@ export class MainService {
 
   approvedCertificates(approvedDto: ApprovedByDto): Observable<any> {
     return this.http.post(environment.approvedCertificateApi, approvedDto);
+  }
+  rejectCertificates(rejectDto: RejectDto): Observable<any> {
+    return this.http.post(environment.rejectCertificateApi, rejectDto);
   }
 
   // -----------------------------reset password
