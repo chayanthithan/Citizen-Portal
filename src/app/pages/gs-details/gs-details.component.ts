@@ -6,6 +6,14 @@ import { FormsModule } from '@angular/forms';
 import {AfterViewInit, Component, ViewChild,inject, OnInit } from '@angular/core';
 import {MatPaginator, MatPaginatorModule} from '@angular/material/paginator';
 import {MatTableDataSource, MatTableModule} from '@angular/material/table';
+import { GnDivisionResponse } from '../../model/gnDivisionResponse';
+import { NgToastModule } from 'ng-angular-popup';
+import { ToastrService } from 'ngx-toastr';
+import { GramaNiladhari } from '../../model/GramaNiladhari';
+import { response } from 'express';
+import { error } from 'console';
+import { GramaNiladhariResponse } from '../../model/GramaNiladhariResponse';
+
 @Component({
   selector: 'app-gs-details',
   imports: [FormsModule,MatTableModule, MatPaginatorModule,CommonModule],
@@ -17,13 +25,43 @@ export class GsDetailsComponent {
   
  enableAddGS:boolean = false;
  filter:string='';
-  constructor() { }
+  gnDivisionResponseDto: GnDivisionResponse[]=[];
+  gramaniladariResponseList:GramaNiladhariResponse[]=[];
+  gramaniladariDto:GramaNiladhari={
+    username: '',
+    password: '',
+    firstName: '',
+    lastName: '',
+    gender: '',
+    age: 0,
+    dateOfBirth:'',
+    email: '',
+    phone: '',
+    address: '',
+    city: '',
+    jobCardNo: '',
+    serviceGrade: '',
+    isPermanent: '',
+    gnDivisionId: '',
+    educationQualification:[ {
+      qualification: '',
+      institution: '',
+      startingYear: 0,
+      completionYear: 0,
+      user_id: ''
+    }]
+  }
+  constructor(private toastr:ToastrService) { }
 
   ngOnInit() {
     this.doFilter();
+    this.getAllGnDivision();
+    this.getAllGramaniladariDetails();
   }
   displayedColumns: string[] = ['Firstname','LastName', 'Address','JobCardNo', 'serviceGrade','Email', 'TelNO','Action'];
-  dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
+  // dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
+  dataSource = new MatTableDataSource<GramaNiladhariResponse>([]);
+  ELEMENT_DATA: GramaNiladhariResponse[] = [];
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
@@ -39,6 +77,56 @@ export class GsDetailsComponent {
     console.log('filter by',this.filter);
 
     
+  }
+
+  // get all gn division
+  getAllGnDivision() {
+    const getData = this.mainService.getAllGnDivisions();
+    getData.subscribe({
+      next: (response: GnDivisionResponse[]) => {
+        this.gnDivisionResponseDto = response;
+        console.log('get all divisions:', this.gnDivisionResponseDto);
+      },
+      error: (error) => {
+        this.toastr.error('Something Wrong to fetch Gn Division', error.status);
+      },
+    });
+  }
+
+  addGramaniladariDetails(){
+    const getData = this.mainService.addGramaniladari(this.gramaniladariDto);
+    getData.subscribe({
+      next:(response)=>{
+        this.toastr.success('successfully added',);
+      },error:(error)=>{
+        this.toastr.error('failed to add gs', error.status);
+      }
+    })
+  }
+
+  getAllGramaniladariDetails(){
+    const getData = this.mainService.getAllGramaniladari();
+    getData.subscribe({
+      next:(response:GramaNiladhariResponse[])=>{
+        this.gramaniladariResponseList = response;
+        this.ELEMENT_DATA = response;
+        this.dataSource.data = this.ELEMENT_DATA;
+      },error:(error)=>{
+        this.toastr.error('failed to add gs', error.status);
+      }
+    })
+
+  }
+
+  // qualification
+  addQualification(): void {
+    this.gramaniladariDto.educationQualification.push({
+      qualification: '',
+      institution: '',
+      startingYear: 0,
+      completionYear: 0,
+      user_id: ''
+    });
   }
     
 }

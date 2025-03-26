@@ -1,21 +1,47 @@
-<mat-tab-group>
-  <mat-tab
-    label="Employee"
-    [routerLink]="['/employee/:id']"
-    routerLinkActive="active"
-  >
-    <div class="tab-content">
-      <router-outlet></router-outlet>
-    </div>
-  </mat-tab>
+<ng-container *ngIf="__main.enableNotification; else otherTabs">
+  <mat-tab-group>
+    <mat-tab
+      label="Employee"
+      [routerLink]="['/employee/:id']"
+      routerLinkActive="active"
+    >
+      <div class="tab-content">
+        <router-outlet></router-outlet>
+      </div>
+    </mat-tab>
 
-  <mat-tab
-    label="Educational"
-    [routerLink]="['/educational']"
-    routerLinkActive="active"
-  >
-    <div class="tab-content">
-      <router-outlet></router-outlet>
-    </div>
-  </mat-tab>
-</mat-tab-group>
+    <mat-tab
+      label="Educational"
+      [routerLink]="['/educational']"
+      routerLinkActive="active"
+    >
+      <div class="tab-content">
+        <router-outlet></router-outlet>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
+</ng-container>
+
+<ng-template #otherTabs>
+  <mat-tab-group>
+    <mat-tab
+      label="News"
+      [routerLink]="['/news']"
+      routerLinkActive="active"
+    >
+      <div class="tab-content">
+        <router-outlet></router-outlet>
+      </div>
+    </mat-tab>
+
+    <mat-tab
+      label="Educational"
+      [routerLink]="['/educational']"
+      routerLinkActive="active"
+    >
+      <div class="tab-content">
+        <router-outlet></router-outlet>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
+</ng-template>

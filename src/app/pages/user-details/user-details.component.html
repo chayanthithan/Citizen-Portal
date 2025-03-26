@@ -107,13 +107,20 @@
 
       <ng-container matColumnDef="action">
         <th mat-header-cell *matHeaderCellDef>Actions</th>
-        <td mat-cell *matCellDef="let element">
+        <td mat-cell *matCellDef="let element" >
           <button
             mat-raised-button
             color="primary"
             (click)="openAddEmployeeForm(element)"
           >
-            Add Employee
+            +Employee
+          </button>
+          <button
+            mat-raised-button
+            color="primary"
+            (click)="openAddIncomeForm(element)"
+          >
+            +Income
           </button>
         </td>
       </ng-container>
@@ -190,7 +197,7 @@
     <table mat-table [dataSource]="dataSource_RequestCertificates">
       <!-- Position Column -->
       <ng-container matColumnDef="typeOfCertificate">
-        <th mat-header-cell *matHeaderCellDef>typeOfCertificate.</th>
+        <th mat-header-cell *matHeaderCellDef>Certificate.</th>
         <td mat-cell *matCellDef="let element">
           {{ element.typeOfCertificate }}
         </td>
@@ -204,7 +211,7 @@
 
       <!-- Weight Column -->
       <ng-container matColumnDef="requestedOrganization">
-        <th mat-header-cell *matHeaderCellDef>requestedOrganization</th>
+        <th mat-header-cell *matHeaderCellDef>Organization</th>
         <td mat-cell *matCellDef="let element">
           {{ element.requestedOrganization }}
         </td>
@@ -224,12 +231,12 @@
       </ng-container>
       <!-- Symbol Column -->
       <ng-container matColumnDef="requestedDate">
-        <th mat-header-cell *matHeaderCellDef>requestedDate</th>
+        <th mat-header-cell *matHeaderCellDef>req-Date</th>
         <td mat-cell *matCellDef="let element">{{ element.requestedDate }}</td>
       </ng-container>
       <!-- Symbol Column -->
       <ng-container matColumnDef="requestStatusUpdateDate">
-        <th mat-header-cell *matHeaderCellDef>requestStatusUpdateDate</th>
+        <th mat-header-cell *matHeaderCellDef>statusUpdateDate</th>
         <td mat-cell *matCellDef="let element">
           {{ element.requestStatusUpdateDate }}
         </td>

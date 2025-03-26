@@ -18,7 +18,7 @@ export class JobComponent {
   constructor(private toastr:ToastrService){}
   __main:MainService = inject(MainService);
   jobDto:Job={
-    jobId: '',
+    id: '',
     title: '',
     description: ''
   }

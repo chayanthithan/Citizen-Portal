@@ -18,6 +18,10 @@ import { ApprovedByDto } from '../model/approvedByDto';
 import { Console } from 'console';
 import { EmploymentDto } from '../model/EmploymentDto';
 import { Job } from '../model/Job';
+import { IncomeDto } from '../model/incomeDto';
+import { GnDivisionDto } from '../model/GnDivisionDto';
+import { GramaNiladhari } from '../model/GramaNiladhari';
+import { GramaNiladhariResponse } from '../model/GramaNiladhariResponse';
 
 @Injectable({
   providedIn: 'root',
@@ -39,6 +43,7 @@ export class MainService {
   isLogged: boolean = true;
   // this is for if gs reject user certificate request
   isReject: boolean = true;
+  enableNotification: boolean = false;
   isRole: String = ''; //user , GS , DS
 
   loginDto: LoginDto = {
@@ -164,6 +169,13 @@ export class MainService {
   getAllGnDivisions(): Observable<GnDivisionResponse[]> {
     return this.http.get<GnDivisionResponse[]>(environment.getAllGnDivisionApi);
   }
+  addGnDivisions(gnData:GnDivisionDto): Observable<GnDivisionResponse> {
+    return this.http.post<GnDivisionResponse>(environment.addGnDivisionApi,gnData);
+  }
+  deleteGnDivision(id:number){
+    return this.http.delete(`${environment.deleteGnDivisionApi}/${id}`);
+  }
+
 
   getDataWithCookies() {
     return this.http
@@ -190,7 +202,7 @@ export class MainService {
   }
 
   addJobDetails(jobDto: Job): Observable<Job> {
-    return this.http.post<Job>(environment.addjob, jobDto);
+    return this.http.post<Job>(environment.addJobApi, jobDto);
   }
 
   getAllJobs(): Observable<Job[]> {
@@ -227,4 +239,32 @@ export class MainService {
   addEmployee(employeeData: EmploymentDto): Observable<EmploymentDto> {
     return this.http.post<EmploymentDto>(environment.addemployee, employeeData);
   }
+  addIncomeDetails(incomeData: IncomeDto): Observable<IncomeDto> {
+    return this.http.post<IncomeDto>(environment.addIncomeApi, incomeData);
+  }
+
+  addGramaniladari(gnData:GramaNiladhari):Observable<GramaNiladhariResponse>{
+    return this.http.post<GramaNiladhariResponse>(environment.addApi,gnData);
+  }
+  getAllGramaniladari():Observable<GramaNiladhariResponse[]>{
+    return this.http.get<GramaNiladhariResponse[]>(environment.addApi);
+  }
+
+  // authentiction
+  authendicateByGoogle():Observable<LoginDto>{
+    return this.http.get<LoginDto>(environment.googleApi);
+  }
+
+  handleGoogleLogin(): Observable<LoginDto> {
+    return this.http.get<LoginDto>(`${environment.apiBaseUrl}/api/v1/auth/google/login`);
+  }
+
+  currentUser():Observable<any>{
+    return this.http.get(environment.currentApi);
+  }
+
+  afterLoginUser():Observable<any>{
+    return this.http.get<any>(environment.meApi,{withCredentials:true});
+  }
+
 }

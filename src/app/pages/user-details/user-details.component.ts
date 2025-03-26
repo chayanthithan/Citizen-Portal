@@ -42,12 +42,12 @@ export class UserDetailsComponent implements OnInit, AfterViewInit {
 
   isRequestCertificate: boolean = false;
 
-  filterCertificateDto: FilterCertificateDto = {
-    typeOfCertificate: 'ALL',
-    requestStatus: 'ALL',
-    requestedDateFrom: new Date(Date.now()).toISOString().split('T')[0],
-    requestedDateTo: '',
-  };
+  // filterCertificateDto: FilterCertificateDto = {
+  //   typeOfCertificate: 'ALL',
+  //   requestStatus: 'ALL',
+  //   requestedDateFrom: new Date(Date.now()).toISOString().split('T')[0],
+  //   requestedDateTo: new Date(Date.now()).toISOString().split('T')[0],
+  // };
 
   filterCitizenDto: FilterCitizenDto = {
     nic: null,
@@ -84,8 +84,8 @@ export class UserDetailsComponent implements OnInit, AfterViewInit {
     'requestedDate',
     'requestStatusUpdateDate',
     'requestedBy',
-    'id',
-    'citizenId',
+    // 'id',
+    // 'citizenId',
     'action',
   ];
 
@@ -100,8 +100,21 @@ export class UserDetailsComponent implements OnInit, AfterViewInit {
   );
 
   constructor(private toastr: ToastrService, private router: Router) {}
-
+  requestedDateFrom!: string;
+  filterCertificateDto!: FilterCertificateDto;
+  
   ngOnInit() {
+ 
+  const now = new Date();
+  const firstDayOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
+  const formattedFirstDay = `${firstDayOfMonth.getFullYear()}-${(firstDayOfMonth.getMonth()+1).toString().padStart(2, '0')}-01`;
+  // Then initialize the DTO with the dates
+  this.filterCertificateDto = {
+    typeOfCertificate: 'ALL',
+    requestStatus: 'ALL',
+    requestedDateFrom: formattedFirstDay, // Now this will have the correct value
+    requestedDateTo: new Date(Date.now()).toISOString().split('T')[0],
+  };
     this.getCitizenByFilter();
     this.filetrCertificateRequest();
   }
@@ -222,6 +235,9 @@ export class UserDetailsComponent implements OnInit, AfterViewInit {
     console.log('Opening employee form for citizen:', citizen.id);
     // Navigating to /employee and passing the citizen's ID
     this.router.navigate(['/employee', citizen.id]);
+  }
+  openAddIncomeForm(element:any){
+    this.router.navigate(['/income', element.id]);
   }
 }
 

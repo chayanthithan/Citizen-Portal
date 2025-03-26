@@ -14,6 +14,7 @@ import { GnDivisionComponent } from './pages/gn-division/gn-division.component';
 import { JobComponent } from './job/job.component';
 import { EmployeementComponent } from './pages/employeement/employeement.component';
 import { TabsComponent } from './pages/tabs/tabs.component';
+import { IncomeComponent } from './pages/income/income.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -51,6 +52,16 @@ export const routes: Routes = [
   {
     path: 'employee/:id',
     component: EmployeementComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'tabs',
+    component: TabsComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'income/:id',
+    component: IncomeComponent,
     canActivate: [AuthGuard],
   },
   {

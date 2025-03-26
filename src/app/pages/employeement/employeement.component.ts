@@ -12,6 +12,8 @@ import { MainService } from './../../service/main.service';
 import { EmploymentDto } from '../../model/EmploymentDto';
 import { DatePipe } from '@angular/common';
 import { Router } from '@angular/router';
+import { NgToastModule } from 'ng-angular-popup';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-employeement',
   imports: [
@@ -22,6 +24,7 @@ import { Router } from '@angular/router';
     MatDatepickerModule,
     MatNativeDateModule,
     MatSelectModule,
+    NgToastModule,
     MatButtonModule,
   ],
   templateUrl: './employeement.component.html',
@@ -40,7 +43,8 @@ export class EmployeementComponent implements OnInit {
     private jobService: MainService,
     private route: ActivatedRoute,
     private datePipe: DatePipe,
-    private router: Router
+    private router: Router,
+    private toastr:ToastrService
   ) {}
 
   ngOnInit(): void {
@@ -76,17 +80,15 @@ export class EmployeementComponent implements OnInit {
 
       this.jobService.addEmployee(employeeData).subscribe({
         next: (response) => {
-          console.log('Employee added successfully', response);
-          alert('Employee added successfully!');
+          this.toastr.success('successfully added');
           this.router.navigate(['/employees']); // Redirect after success
         },
         error: (error) => {
-          console.error('Error adding employee', error);
-          alert('Failed to add employee');
+          this.toastr.error('failed to add employee!');
         },
       });
     } else {
-      alert('Please fill out all fields');
+      this.toastr.error('please fill fields of employee!');
     }
   }
 }

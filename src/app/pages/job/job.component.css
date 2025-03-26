@@ -31,7 +31,13 @@
 .form_group input{
     width: 100%;
     padding: 5px;
+    border: 1px solid #19657e73;
+    border-radius: 5px;
 }
+.form_group input{
+    color: red;
+}
+
 .btn_job{
     width: 98%;
     margin: auto;

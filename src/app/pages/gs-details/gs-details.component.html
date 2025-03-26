@@ -15,25 +15,25 @@
             <!-- Position Column -->
             <ng-container matColumnDef="Firstname">
                 <th mat-header-cell *matHeaderCellDef> Firstname. </th>
-                <td mat-cell *matCellDef="let element"> {{element.Firstname}} </td>
+                <td mat-cell *matCellDef="let element"> {{element.firstName}} </td>
             </ng-container>
 
             <!-- Name Column -->
             <ng-container matColumnDef="LastName">
                 <th mat-header-cell *matHeaderCellDef> LastName </th>
-                <td mat-cell *matCellDef="let element"> {{element.LastName}} </td>
+                <td mat-cell *matCellDef="let element"> {{element.lastName}} </td>
             </ng-container>
 
             <!-- Weight Column -->
             <ng-container matColumnDef="Address">
                 <th mat-header-cell *matHeaderCellDef> Address </th>
-                <td mat-cell *matCellDef="let element"> {{element.Address}} </td>
+                <td mat-cell *matCellDef="let element"> {{element.address}} </td>
             </ng-container>
 
             <!-- Symbol Column -->
             <ng-container matColumnDef="JobCardNo">
                 <th mat-header-cell *matHeaderCellDef> JobCardNo </th>
-                <td mat-cell *matCellDef="let element"> {{element.JobCardNo}} </td>
+                <td mat-cell *matCellDef="let element"> {{element.jobCardNo}} </td>
             </ng-container>
 
             <ng-container matColumnDef="serviceGrade">
@@ -43,18 +43,18 @@
 
             <ng-container matColumnDef="Email">
                 <th mat-header-cell *matHeaderCellDef> Email </th>
-                <td mat-cell *matCellDef="let element"> {{element.Email}} </td>
+                <td mat-cell *matCellDef="let element"> {{element.email}} </td>
             </ng-container>
 
             <ng-container matColumnDef="TelNO">
                 <th mat-header-cell *matHeaderCellDef> TelNO </th>
-                <td mat-cell *matCellDef="let element"> {{element.TelNO}} </td>
+                <td mat-cell *matCellDef="let element"> {{element.phone}} </td>
             </ng-container>
             <!-- Action -->
             <ng-container matColumnDef="Action">
                 <th mat-header-cell *matHeaderCellDef> Action </th>
-                <td mat-cell *matCellDef="let element" class="action" > 
-                    <button  class="btn_view">View</button>
+                <td mat-cell *matCellDef="let element" class="action">
+                    <button class="btn_view">View</button>
                 </td>
             </ng-container>
 
@@ -83,91 +83,152 @@
             </div>
 
             <form class="login-form" action="">
+                <!-- Basic Information -->
                 <div class="form-group">
-                    <label for="username">Username</label>
-                    <input type="text" id="username" placeholder="Enter your username" required>
+                  <label for="username">Username</label>
+                  <input [(ngModel)]="gramaniladariDto.username" name="username" type="text" id="username"
+                         placeholder="Enter your username" required>
                 </div>
-
+              
                 <div class="form-group">
-                    <label for="password">Password</label>
-                    <input type="password" id="password" placeholder="Enter your password" required>
+                  <label for="password">Password</label>
+                  <input [(ngModel)]="gramaniladariDto.password" name="password" type="password" id="password"
+                         placeholder="Enter your password" required>
                 </div>
+              
+                <!-- Personal Information -->
                 <div class="form-group">
-                    <label for="firstName">FirstName</label>
-                    <input type="password" id="firstName" placeholder="Enter your firstname" required>
+                  <label for="firstName">FirstName</label>
+                  <input [(ngModel)]="gramaniladariDto.firstName" name="firstName" type="text" id="firstName"
+                         placeholder="Enter your firstname" required>
                 </div>
+              
                 <div class="form-group">
-                    <label for="lastName">LastName</label>
-                    <input type="password" id="lastName" placeholder="Enter your lastname" required>
+                  <label for="lastName">LastName</label>
+                  <input [(ngModel)]="gramaniladariDto.lastName" name="lastName" type="text" id="lastName"
+                         placeholder="Enter your lastname" required>
                 </div>
+              
+                <!-- Division Selection -->
                 <div class="form-group">
-                    <label for="gender">Gender</label>
-                    <input type="password" id="gender" placeholder="Enter your gender" required>
+                  <label for="gramaNiladhariDivision">GramaNiladhari Division</label>
+                  <select [(ngModel)]="gramaniladariDto.gnDivisionId" name="gnDivisionId" class="form-select" required>
+                    <option value="">-- Select Division --</option>
+                    <option *ngFor="let division of gnDivisionResponseDto" [value]="division.id">
+                      {{ division.code }}
+                    </option>
+                  </select>
                 </div>
+              
+                <!-- Personal Details -->
                 <div class="form-group">
-                    <label for="age">Age</label>
-                    <input type="password" id="age" placeholder="Enter your age" required>
+                  <label for="gender">Gender</label>
+                  <select [(ngModel)]="gramaniladariDto.gender" name="gender" id="gender" required>
+                    <option value="">-- Select Gender --</option>
+                    <option value="MALE">Male</option>
+                    <option value="FEMALE">Female</option>
+                    <option value="OTHER">Other</option>
+                  </select>
                 </div>
+              
                 <div class="form-group">
-                    <label for="dateOfBirth">Date Of Birth</label>
-                    <input type="password" id="dateOfBirth" placeholder="Enter your dateOfBirth" required>
+                  <label for="age">Age</label>
+                  <input [(ngModel)]="gramaniladariDto.age" name="age" type="number" id="age"
+                         placeholder="Enter your age" required min="18">
                 </div>
+              
                 <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="password" id="email" placeholder="Enter your email" required>
+                  <label for="dateOfBirth">Date Of Birth</label>
+                  <input [(ngModel)]="gramaniladariDto.dateOfBirth" name="dateOfBirth" type="date" id="dateOfBirth" required>
                 </div>
+              
+                <!-- Contact Information -->
                 <div class="form-group">
-                    <label for="phone">Phone</label>
-                    <input type="password" id="phone" placeholder="Enter your phone" required>
+                  <label for="email">Email</label>
+                  <input [(ngModel)]="gramaniladariDto.email" name="email" type="email" id="email"
+                         placeholder="Enter your email" required>
                 </div>
+              
                 <div class="form-group">
-                    <label for="address">Address</label>
-                    <input type="password" id="address" placeholder="Enter your address" required>
+                  <label for="phone">Phone</label>
+                  <input [(ngModel)]="gramaniladariDto.phone" name="phone" type="tel" id="phone"
+                         placeholder="Enter your phone" required pattern="[0-9]{10}">
                 </div>
+              
                 <div class="form-group">
-                    <label for="city">City</label>
-                    <input type="password" id="city" placeholder="Enter your city" required>
+                  <label for="address">Address</label>
+                  <input [(ngModel)]="gramaniladariDto.address" name="address" type="text" id="address"
+                         placeholder="Enter your address" required>
                 </div>
+              
                 <div class="form-group">
-                    <label for="jobCardNo">Job Card No</label>
-                    <input type="password" id="jobCardNo" placeholder="Enter your jobCardNo" required>
+                  <label for="city">City</label>
+                  <input [(ngModel)]="gramaniladariDto.city" name="city" type="text" id="city"
+                         placeholder="Enter your city" required>
                 </div>
+              
+                <!-- Job Information -->
                 <div class="form-group">
-                    <label for="serviceGrade">Service Grade</label>
-                    <input type="password" id="serviceGrade" placeholder="Enter your serviceGrade" required>
+                  <label for="jobCardNo">Job Card No</label>
+                  <input [(ngModel)]="gramaniladariDto.jobCardNo" name="jobCardNo" type="text" id="jobCardNo"
+                         placeholder="Enter your jobCardNo" required>
                 </div>
+              
                 <div class="form-group">
-                    <div>
-                        <label for="isPermanent">Is Permanent</label>
-                        <input type="checkbox" id="isPermanent"  required>
+                  <label for="serviceGrade">Service Grade</label>
+                  <input [(ngModel)]="gramaniladariDto.serviceGrade" name="serviceGrade" type="text" id="serviceGrade"
+                         placeholder="Enter your serviceGrade" required>
+                </div>
+              
+                <div class="form-group">
+                  <label for="isPermanent">Is Permanent</label>
+                  <input [(ngModel)]="gramaniladariDto.isPermanent" name="isPermanent" type="checkbox" 
+                         id="isPermanent" [ngModelOptions]="{standalone: true}">
+                </div>
+              
+                <!-- Education Qualification (Now as array) -->
+                <div class="gs_qualification">
+                  <div class="education">
+                    <p>Education Details</p>
+                  </div>
+                  
+                  <div *ngFor="let qual of gramaniladariDto.educationQualification; let i = index">
+                    <div class="form-group">
+                      <label [for]="'qualification_' + i">Qualification</label>
+                      <input [(ngModel)]="qual.qualification" type="text" 
+                             [name]="'qualification_' + i" [id]="'qualification_' + i"
+                             placeholder="Enter your qualification" required>
                     </div>
                     
+                    <div class="form-group">
+                      <label [for]="'institution_' + i">Institution</label>
+                      <input [(ngModel)]="qual.institution" type="text" 
+                             [id]="'institution_' + i" [name]="'institution_' + i"
+                             placeholder="Enter your institution" required>
+                    </div>
+                    
+                    <div class="form-group">
+                      <label [for]="'startingYear_' + i">Starting Year</label>
+                      <input [(ngModel)]="qual.startingYear" [name]="'startingYear_' + i"
+                             type="number" [id]="'startingYear_' + i" 
+                             placeholder="Enter your startingYear" required>
+                    </div>
+                    
+                    <div class="form-group">
+                      <label [for]="'completionYear_' + i">Completion Year</label>
+                      <input [(ngModel)]="qual.completionYear" [name]="'completionYear_' + i" 
+                             type="number" [id]="'completionYear_' + i"
+                             placeholder="Enter your completionYear" required>
+                    </div>
+                  </div>
+                  
+                  <button type="button" class="btn btn-secondary" (click)="addQualification()">
+                    Add Another Qualification
+                  </button>
                 </div>
-                <!-- qualificationdetails -->
-                <div class="gs_qualification">
-                    <div class="education">
-                        <p>Education Details</p>
-                    </div>
-                    <div class="form-group">
-                        <label for="qualification">Qualification</label>
-                        <input type="password" id="qualification" placeholder="Enter your qualification" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="institution">Institution</label>
-                        <input type="password" id="institution" placeholder="Enter your institution" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="startingYear">StartingYear</label>
-                        <input type="password" id="startingYear" placeholder="Enter your startingYear" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="completionYear">CompletionYear</label>
-                        <input type="password" id="completionYear" placeholder="Enter your completionYear" required>
-                    </div>
-                </div>
-                <button type="submit" class="login-button">Add</button>
-
-            </form>
+              
+                <button type="submit" class="login-button" (click)="addGramaniladariDetails()">Add</button>
+              </form>
         </div>
     </div>
 </div>

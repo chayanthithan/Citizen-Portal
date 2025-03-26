@@ -1,4 +1,4 @@
-import { GnQualification } from "./Qualification";
+import { Qualification } from "./Qualification";
 
 export interface GramaNiladhari {
     username: string,
@@ -7,7 +7,7 @@ export interface GramaNiladhari {
     lastName: string,
     gender: string,
     age: number,
-    dateOfBirth: Date,
+    dateOfBirth: string,
     email: string,
     phone: string,
     address: string,
@@ -15,5 +15,6 @@ export interface GramaNiladhari {
     jobCardNo: string,
     serviceGrade: string,
     isPermanent: string,
-    educationQualification:GnQualification;
+    gnDivisionId:string,
+    educationQualification:Qualification[];
 }
