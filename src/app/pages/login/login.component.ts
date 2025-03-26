@@ -3,7 +3,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
-import { Router, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { Login } from '../../model/Login';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -34,29 +34,55 @@ import { environment } from '../../../environment';
   providers: [],
 })
 export class LoginComponent implements OnInit {
-  constructor(private router: Router, private toastr: ToastrService) {}
+  constructor(
+    private router: Router,
+    private toastr: ToastrService,
+    private activateRoute: ActivatedRoute
+  ) {}
   ngOnInit(): void {
-    
-    console.log('ngOnInit triggerd');
-    const getData = this.mainService.currentUser();
-    getData.subscribe({
-      next:(response)=>{
-        console.log(response);
-      },error:(error)=>{
-        console.log(error);
-      }
-    })
+    if (sessionStorage.getItem('loginDto')) {
+      this.router.navigateByUrl('index');
+    }
 
-    this.mainService.handleGoogleLogin().subscribe({
+    this.activateRoute.queryParams.subscribe((params) => {
+      console.log('kajamohan ', params);
+      if (
+        params['email'] &&
+        params['isVerified'] &&
+        params['isVerified'] === 'true'
+      ) {
+        this.handleAfterGoogleLogin();
+      }
+    });
+  }
+
+  handleAfterGoogleLogin(): void {
+    // This service will be triggered after successful authentication
+    this.mainService.afterLoginUser().subscribe({
       next: (response) => {
-        console.log("Google login success:", response);
-        localStorage.setItem('currentUser', JSON.stringify(response));
-        this.router.navigate(['/index']);
+        console.log('Received response:', response); // Debugging
+
+        if (response && response.email) {
+          // Store login details
+          sessionStorage.setItem('loginDto', JSON.stringify(response));
+          this.mainService.loginDto = response;
+
+          // Store roles correctly
+          if (response.roles && Array.isArray(response.roles)) {
+            this.mainService.isRole = response.roles;
+          }
+
+          // Navigate to index page after login
+          this.router.navigate(['/index']);
+        } else {
+          console.error('Error: Response is empty', response);
+          this.router.navigate(['/login']);
+        }
       },
-      // error: (err) => {
-      //   console.error("Google login failed:", err);
-      //   this.router.navigate(['/login'], { queryParams: { error: 'google_auth_failed' } });
-      // }
+      error: (error) => {
+        console.error('API error:', error);
+        this.router.navigate(['/login']);
+      },
     });
   }
   // import services
@@ -77,18 +103,8 @@ export class LoginComponent implements OnInit {
   mainService: MainService = inject(MainService);
 
   doLogin() {
-    debugger;
     if (this.loginCredentials.email && this.loginCredentials.password) {
-      // this.loginData = {
-      //   lastName: 'vimal@gmail.com',
-      //   email: '12345',
-      //   roles:['ROLE_DS'],
-      //   firstName:'',
-      //   userId:''
-      // }
-
-      let getData = this.loginService.loginUser(this.loginCredentials);
-      getData.subscribe({
+      this.loginService.loginUser(this.loginCredentials).subscribe({
         next: (response) => {
           sessionStorage.setItem('loginDto', JSON.stringify(response));
           this.mainService.loginDto = response;
@@ -99,69 +115,16 @@ export class LoginComponent implements OnInit {
             'Login Successful!',
             this.mainService.loginDto.lastName
           );
-          // this.router.navigate(['index']);
-          const returnUrl =
-            this.router.parseUrl(this.router.url).queryParams['returnUrl'] ||
-            '/index';
-
-          this.router.navigateByUrl(returnUrl);
         },
         error: (error) => {
           this.toastr.error('login failed', error.status);
         },
       });
-
-      // delete below code once everything got fine
-      //     sessionStorage.setItem('loginDto', JSON.stringify(this.loginData));
-      //       this.mainService.loginDto = this.loginData;
-      //       this.mainService.loginDto.roles.forEach(role=>{this.mainService.isRole = role})
-      //       this.toastr.success('Login Successful!', this.mainService.loginDto.lastName);
-      //       // this.router.navigate(['index']);
-      //       const returnUrl = this.router.parseUrl(this.router.url).queryParams['returnUrl'] || '/index';
-      //       this.router.navigateByUrl(returnUrl);
-      // } else {
-      //   console.error('Username and password are required');
-      //  }
     }
   }
 
   // authendication
   sendAuthendication() {
-    // Redirect to Google login page
     window.location.href = `${environment.googleApi}`;
-
-    // This service will be triggered after successful authentication
-    this.mainService.handleGoogleLogin().subscribe({
-      next: (response) => {
-          console.log('Received response:', response); // Debugging
-  
-          if (response && response.email) {  // Check if the response contains valid data
-              sessionStorage.setItem('loginDto', JSON.stringify(response));
-              this.mainService.loginDto = response;
-  
-              // Store roles correctly
-              this.mainService.loginDto.roles.forEach((role) => {
-                  console.log('User role:', role);  // Debugging
-                  this.mainService.isRole = role;
-              });
-  
-              this.toastr.success('Login Successful!', this.mainService.loginDto.lastName);
-              this.router.navigate(['/index']);
-          } else {
-              this.toastr.error('Login failed: No user data received');
-              console.error('Error: Response is empty', response);
-          }
-      },
-      error: (error) => {
-          this.toastr.error('Login failed', error.status);
-          console.error('API error:', error);
-          this.router.navigate(['/login']);
-      }
-  });
-  
-}
-
-
-  
-  
+  }
 }

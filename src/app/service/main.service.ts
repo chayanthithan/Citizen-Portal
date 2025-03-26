@@ -260,7 +260,7 @@ export class MainService {
   }
 
   currentUser():Observable<any>{
-    return this.http.get(environment.currentApi);
+    return this.http.get(environment.currentApi,{withCredentials:true});
   }
 
   afterLoginUser():Observable<any>{

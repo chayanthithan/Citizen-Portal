@@ -6,9 +6,10 @@ import { FormsModule } from '@angular/forms';
 import { AfterViewInit, Component, ViewChild, inject, OnInit } from '@angular/core';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-index',
-  imports: [FormsModule, MatTableModule, MatPaginatorModule, CommonModule,RouterLink],
+  imports: [FormsModule, MatTableModule, MatPaginatorModule, CommonModule],
   templateUrl: './index.component.html',
   styleUrl: './index.component.css',
 })
@@ -18,14 +19,14 @@ export class IndexComponent implements OnInit {
   mainService: MainService = inject(MainService);
 
 
-  constructor(private router:Router) { }
+  constructor(private router:Router,private toastr: ToastrService) { }
 
   ngOnInit() {
+    this.handleAfterGoogleLogin();
     this.mainService.resetMenu();
     document.getElementById('home_screen')?.classList.add(...['menu__select']);
 
-    const getRes = this.mainService.afterLoginUser();
-    getRes.subscribe({
+     this.mainService.afterLoginUser().subscribe({
       next: (response) => {
         sessionStorage.setItem('loginDto', JSON.stringify(response));
         console.log(response);
@@ -36,6 +37,43 @@ export class IndexComponent implements OnInit {
     })
 
   }
+
+  handleAfterGoogleLogin(){
+    // This service will be triggered after successful authentication
+    this.mainService.afterLoginUser().subscribe({
+      next: (response) => {
+        console.log('Received response:', response); // Debugging
+  
+        if (response && response.email) {
+          // Check if the response contains valid data
+          sessionStorage.setItem('loginDto', JSON.stringify(response));
+          this.mainService.loginDto = response;
+  
+          // Store roles correctly
+          this.mainService.loginDto.roles.forEach((role) => {
+            console.log('User role:', role); // Debugging
+            this.mainService.isRole = role;
+          });
+  
+          this.toastr.success(
+            'Login Successful!',
+            this.mainService.loginDto.lastName
+          );
+          // this.router.navigate(['/index']);
+        } else {
+          this.toastr.error('Login failed: No user data received');
+          console.error('Error: Response is empty', response);
+        }
+      },
+      error: (error) => {
+        this.toastr.error('Login failed', error.status);
+        console.error('API error:', error);
+        this.router.navigate(['/login']);
+      },
+    });
+    }
+
+
 
   displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
   dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
