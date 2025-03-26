@@ -11,7 +11,7 @@ import { GsDetailsComponent } from './pages/gs-details/gs-details.component';
 import { AuthGuard } from './auth.guard';
 import { GenerateCertificatesComponent } from './pages/generate-certificates/generate-certificates.component';
 import { GnDivisionComponent } from './pages/gn-division/gn-division.component';
-import { JobComponent } from './job/job.component';
+import { JobComponent } from './pages/job/job.component';
 import { EmployeementComponent } from './pages/employeement/employeement.component';
 import { TabsComponent } from './pages/tabs/tabs.component';
 import { IncomeComponent } from './pages/income/income.component';

@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { Job } from '../../model/Job';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -8,30 +8,40 @@ import { GnDivisionResponse } from '../../model/gnDivisionResponse';
 import { NgToastModule } from 'ng-angular-popup';
 @Component({
   selector: 'app-job',
-  imports: [
-    FormsModule,CommonModule,NgToastModule
-  ],
+  standalone: true,
+  imports: [FormsModule, CommonModule, NgToastModule],
   templateUrl: './job.component.html',
-  styleUrl: './job.component.css'
+  styleUrl: './job.component.css',
 })
-export class JobComponent {
-  constructor(private toastr:ToastrService){}
-  __main:MainService = inject(MainService);
-  jobDto:Job={
+export class JobComponent implements OnInit {
+  constructor(private toastr: ToastrService) {
+    console.log('job component');
+  }
+  ngOnInit(): void {
+    throw new Error('Method not implemented.');
+  }
+  __main: MainService = inject(MainService);
+  jobDto: Job = {
     id: '',
     title: '',
-    description: ''
-  }
+    description: '',
+  };
 
-  addJob(){
+  addJob() {
+    debugger;
     const getData = this.__main.addJobDetails(this.jobDto);
     getData.subscribe({
-      next:(response)=>{
+      next: (response) => {
         this.toastr.success('Added Successful!');
-      },error:(error)=>{
-
-      }
-    })
+        this.jobDto = {
+          id: '',
+          title: '',
+          description: '',
+        };
+      },
+      error: (error) => {
+        this.toastr.success('failed to add job!');
+      },
+    });
   }
-
 }
